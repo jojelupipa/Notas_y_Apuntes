@@ -9,6 +9,8 @@ geometry: margin=1in        			# Tamaño de los márgenes
 ---
 
 \newpage
+
+<!--14/09/2017-->
 **Presentación**
 Información asignatura:
 
@@ -77,7 +79,13 @@ de inactividad es planificado o no planificado.
 
 Esta es mejorable mediante sistemas de alimentación que resistan
 caídas de luz o usar configuraciones RAID ("copias de seguridad").
-<!--Completar información sobre RAID-->
+
+RAID (redundant array of independent disks) es un sistema de
+almacenamiento que combina el uso de múltiples discos de
+almacenamiento en una única unidad lógica para implementar la
+redundancia de datos, esto es la existencia de datos adicionales a los
+originales que permiten la corrección de errores en datos almacenados
+o transmitidos.
 
 **Seguridad:** Todo servidor debe de ser seguro ante incursión de
 individuos no autorizados, corrupción o alteración de datos y las
@@ -85,7 +93,16 @@ posibles interferencias que impidan el acceso a los recursos. Para
 ello usa medidas como la autenticación de usuarios, encriptación de
 datos, cortaguegos y mecanismos de prevención de ataques DOS.
 
-**Extensibilidad-expansibilidad:**
+**Extensibilidad-expansibilidad:** Hace referencia a la facilidad que
+ofrece el sistema para aumentar sus características o recursos.
+Se permite esto mediante el uso de Sistemas Operativos modulares de
+código abierto, o del uso de interfaces de E/S estándar para facilitar
+la incorporación de más dispositivos al sistema.
 
-**Escalabilidad:**
+**Escalabilidad:** Un servidor es escalable cuando sus prestaciones
+pueden aumentar significativamente ante un incremento significativo de
+su carga. Esto se puede implementar mediante cloud computing,
+clusters, virtualización, distribución de carga, Storage Area
+Networks, Programación Paralela...
+
 
