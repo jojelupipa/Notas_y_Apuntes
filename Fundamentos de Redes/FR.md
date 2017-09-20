@@ -10,6 +10,7 @@ geometry: margin=1in        			# Tamaño de los márgenes
 
 \newpage
 
+<!--13/09/2017-->
 **Presentación**
 
 *) Viernes a partir de las 9:00 se abren las plazas de los grupos de
@@ -64,3 +65,5 @@ Grupo 3:
 ### **Modelo TCP/IP**
 
 - Capa de Aplicación
+
+<!--20/09/2017-->
