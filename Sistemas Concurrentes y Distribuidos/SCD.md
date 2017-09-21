@@ -12,9 +12,43 @@ geometry: margin=1in        			# Tamaño de los márgenes
 
 # Tema 1. Introducción
 
+
+## Conceptos básicos
+
+* **Programa secuencial:** Conjunto de datos con las respectivas
+instrucciones secuenciales sobre estos.
+
+* **Programa concurrente:** Conjunto de programas secuenciales que se
+pueden ejecutar en paralelo.
+
+* **Proceso:** Ejecución de un programa secuencial.
+
+* **Concurrencia:** Describe el potencial para la ejecución paralela.
+
+* **Programación concurrente:** Conjunto de notaciones y técnicas
+usadas para expresar y resolver problemas de sincronización y
+comunicación.
+
+* **Programación paralela:** Aprovecha la capacidad de procesamiento
+paralelo del hardware para acelerar la resolución de problemas.
+
+* **Programación distribuida:** Su principal objetivo es hacer que
+varios componentes software ubicados en diferentes ordenadores
+trabajen juntos.
+
+* **Programación de tiempo real:** Se centra en la programación de
+sistemas que requieren respuestas de tiempo estrictas.
+
+
+La programación concurrente mejora la eficiencia y la calidad de los
+programas. En sistemas monoprocesador evita esperas ociosas y el uso
+por parte de varios usuarios. En sistemas multiprocesador permite
+distribuir las tareas para acelerar el tiempo de ejecución.
+
 <!-- Faltan cosas de las diapositivas desde el principio hasta la -->
 <!-- página 21 (Grafos de sincronización) -->
 
+<!--20/09/2017-->
 Un **Grafo de sincronización** es un Grafo Dirigido Acíclico donde
 cada nodo representa una secuencia de sentencias del programa. Este
 restringe las sentencias que pueden ser ejecutadas o que dependen de
