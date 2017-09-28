@@ -234,20 +234,85 @@ flotante.
    la coma flotante.
    
    Tiempo actual: $T_m$
-   Tiempo del recurso mejorado: $0.65·T_m$
-   Tiempo no mejorable: $0.35·T_m$
+   Tiempo del recurso mejorado: $0.65\cdot T_m$
+   Tiempo no mejorable: $0.35\cdot T_m$
    
    Esto implica que el tiempo anterior $T_o$ se compone de el tiempo
    no mejorable y un tiempo 15 veces más lento que la mejora
    actual. Es decir:
    
-   $T_o$ = $T_m·0.35$ + 15·$T_m$·0.65$
+   $T_o = T_m\cdot 0.35 + 15\cdot T_m \cdot 0.65$
    
-   Entonces anteriormente usaba una fracción equivalente a $\frac{T_m·15·0.65}{T_o}$
+   Entonces anteriormente usaba una fracción equivalente a
+   $\frac{T_m\cdot 15\cdot 0.65}{T_o}$
    
    En este momento podemos estudiar la ganancia, expresada en función
    del tiempo de mejora:
    
-   $$S = \frac{0.35·T_m + 0.65·T_m·15}{T_m}=10.1$$
+   $$S = \frac{0.35\cdot T_m + 0.65\cdot T_m\cdot 15}{T_m}=10.1$$
+   $$F = 0.965$$
    
-   
+<!-- 28/09/2017 -->
+
+# Tema 2
+
+## Placa Base
+
+**Placa Base:** Una placa base es la tarjeta de circuito impreso
+(PCB). En ella se conectan los principales componentes del computador
+mediante elementos conductores. Hoy en día se hacen placas multicapa
+para poder dar soporte a todas las conexiones. Todas las placas base
+tienen una lista de características consultables llamada *Datasheet*.
+
+### Elementos de la placa base
+
+* **Zócalos de la CPU (Sockets):** Facilitan la conexión entre el
+  microprocesador y la placa base de manera que puede ser remplazado
+  sin necesidad de soldaduras. Algunos suelen tener una pequeña
+  palanca que reduzca el riesgo de romper o doblar cualquier
+  patilla. La CPU suele tener un ventilador propio, pues es el
+  elemento que más calor genera, y por tanto necesita ser
+  disipado. Para esto se suele usar la pasta térmica que es mejor
+  conductor del calor que el propio aire. Incorporan su propia memoria
+  caché, más rápida y pequeña (Static RAM, SRAM).
+  
+  Dado que la CPU necesita un voltaje mucho inferior al resto de la
+  placa base existen reguladores de voltaje que permiten bajar la
+  tensión a los 0'8V~1'1V para que puedan funcionar correctamente.
+  
+  Históricamente se ha evolucionado exponencialmente en términos de
+  número de transistores, la frecuencia, la cantidad de Vatios... pero
+  la capacidad de procesamiento monohebra se quedó atrás en el momento
+  en el que se llegó a la *“Thermal Wall”*, no se podía generar toda
+  la potencia que se quisiese sin generar un calor de manera que no
+  fuese viable. Desde ese momento se desarrolló la tecnología
+  multi-núcleo.
+  
+  Los tres grandes distribuidores de microprocesadores son Intel, AMD
+  e IBM. Intel tiene su gama de servidores *“Xeon”*, que le da la
+  capacidad de coexistir con otros microprocesadores en la misma placa
+  base. AMD tiene por su parte a *“Opteron”*. La familia de servidores
+  de IBM es *“POWER”*.
+  
+* **Zócalos para Memoria DRAM (Dynamic RAM):** Son más lentos que la
+  SRAM, y son módulos de memoria principal de lectura/escritura, son
+  volátiles y necesitan refresco, es decir, un controlador tiene que
+  reescribir los datos sobre sí misma cada pocos milisegundos, pues
+  esta memoria es volátil. 
+  
+  Los conectores están agrupados en canales de memoria a los que la
+  CPU puede acceder en paralelo, pudiendo conectarse a varios módulos
+  de memoria en cada canal.
+  
+  La mayor velocidad que podemos obtener lo haremos con la que más
+  memoria nos permita tener a nuestro alcance. En las tecnologías de
+  memoria actuales las DDR4 son las más recientes y veloces
+  <!--Dato pendiente de confirmar-->
+  
+  
+
+
+
+
+
+
