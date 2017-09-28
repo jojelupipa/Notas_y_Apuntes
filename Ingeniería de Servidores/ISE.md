@@ -101,8 +101,153 @@ la incorporación de más dispositivos al sistema.
 
 **Escalabilidad:** Un servidor es escalable cuando sus prestaciones
 pueden aumentar significativamente ante un incremento significativo de
-su carga. Esto se puede implementar mediante cloud computing,
-clusters, virtualización, distribución de carga, Storage Area
-Networks, Programación Paralela...
+su carga, es decir, de mantener su productividad al incrementar los
+clientes.
+Esto se puede implementar mediante cloud computing, clusters,
+virtualización, distribución de carga, Storage Area Networks,
+Programación Paralela... 
+
+<!--21/09/2017-->
+**Mantenimiento:** Procurar que el servidor siga funcionando
+manteniendo las mismas prestaciones iniciales.
+
+**Coste:** Es necesario que todo diseño se ajuste al
+presupuesto. Desde el coste del hardware-software hasta la eficiencia
+energética.
+
+## Comparación conjunta de prestaciones y coste
+
+Estudiaremos el concepto de "rapidez" en los computadores.
+
+* **Tiempos de ejecución:** Dado el tiempo en que tarda un computador
+en ejecutar un programa determinado podemos realizar una serie de
+comparaciones en base a este.
+
+Cambio relativo de $t_A$ con respecto a $t_B$ viene dado por:
+$$\Delta t_{A,B} = \frac{t_A - t_B}{t_B} = \frac{t_A}{t_B}-1$$
+
+**Speed Up:**
+$$S_B(A) = \frac{V_A}{V_B} = \frac{t_B}{t_A}$$
+
+Siendo $V_A$ la velocidad entendida como Cómputo_realizado/Tiempo.
 
 
+Entoncces el **cambio relativo** es $\Delta V_{A,B} = S_B(A) -1$
+
+Una vez conocidas las prestaciones nos interesa conocer el coste de
+estos computadores para poder obtener la máxima relación
+Prestaciones/Coste. 
+
+Definimos la **Prestación** como la inversa del tiempo de respuesta.
+
+De este modo esta relación se calcula del siguiente modo:
+
+$$\frac{Prestaciones_A}{Coste_A} = \frac{\frac{1}{t_A}}{Coste_A}$$ 
+
+Obtenida esta relación podemos dividir las relaciones de cada
+computador para poder esclarecer cuánto mejor es una computadora con
+respecto a la otra.
+
+## Límites en la mejora del tiempo de respuesta. Ley de Amdahl
+
+Al intentar mejorar las prestaciones de un computador existe una
+limitación en las cuales nos debemos fijar para saber qué prestaciones
+hay que optimizar para obtener una mayor repercusión en nuestros
+tiempos de respuesta.
+
+Cuando intentamos reducir el tiempo de ejecución de un programa nos
+centramos en un determinado recurso, que es utilizado una porción del
+tiempo de ejecución. Si mejoramos dicho recurso sólo optimizaremos esa
+fracción del tiempo, el resto del programa que no use ese recurso no
+podrá ser reducida con esa mejora.
+
+La **ley de Amdahl** se basa en este principio.
+
+$$S=\frac{1}{1-f+\frac{f}{k}}$$
+
+Donde S es la ganancia en velocidad (speed-up), $f$ la fracción de
+tiempo mejorable y $k$ la mejora del componente.
+
+Además podemos calcular la ganancia máxima cuando la mejora tienda a
+valores infinitos.
+
+$$S_{max}= \lim_{k\to \infty} \frac{1}{1-f}$$
+
+**Generalización de la ley de Amdahl**
+
+$$S = \frac{1}{(1-\sum \limits _{i=1}^nf_i)+ \sum \limits _{i=1}^n \frac{f_i}{k_i}}$$
+
+\newpage
+
+## Ejercicios
+
+**\underline{Ejercicio 1.3}**
+
+
+E/S:              10s
+Op. ComaFlotante: 60s
+Op.Enteras:       30s
+
+Tiempo total: 100s
+
+Tras la mejora tendríamos:
+
+E/S:              10s
+Op. ComaFlotante: 20s
+Op.Enteras:       15s
+
+Tiempo total 45s
+
+$$S=\frac{v_m}{v_o}=\frac{t_o}{t_m} = \frac{100}{45}=2.22$$
+
+**\underline{Ejercicio 1.13}**
+
+Tiempo total del programa: 70s
+
+85% CPU --> 59.5s
+15% E/S --> 10.5s
+
+Un procesador que cueste el doble, ¿cuántas veces más rápido ha de ser
+para rentabilizarlo?
+
+Siendo x el coste del primer ordenador calculamos:
+
+Prestaciones1/Coste1 = (1/70)/x
+Prestaciones2/Coste2 = (1/T2)/2x
+
+Siendo T2 la suma del tiempo de E/S invariable más el tiempo de CPU de
+este computador.
+
+Es decir que la relación del segundo ordenador debe ser mayor que la
+del primero.
+
+10'5+59'5/k $\leq$ 70/2 $\Rightarrow$ k $\geq$ 2'43
+
+
+**\underline{Ejercicio 1.11}**
+
+Un nuevo procesador mejora 15 veces la ejecución de las operaciones en
+cooma flotante. Este procesador emplea un 65% del tiempo en coma
+flotante.
+
+1. En el procesador original, calcular la fracción de tiempo que usaba
+   la coma flotante.
+   
+   Tiempo actual: $T_m$
+   Tiempo del recurso mejorado: $0.65·T_m$
+   Tiempo no mejorable: $0.35·T_m$
+   
+   Esto implica que el tiempo anterior $T_o$ se compone de el tiempo
+   no mejorable y un tiempo 15 veces más lento que la mejora
+   actual. Es decir:
+   
+   $T_o$ = $T_m·0.35$ + 15·$T_m$·0.65$
+   
+   Entonces anteriormente usaba una fracción equivalente a $\frac{T_m·15·0.65}{T_o}$
+   
+   En este momento podemos estudiar la ganancia, expresada en función
+   del tiempo de mejora:
+   
+   $$S = \frac{0.35·T_m + 0.65·T_m·15}{T_m}=10.1$$
+   
+   
