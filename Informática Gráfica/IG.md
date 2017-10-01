@@ -64,7 +64,7 @@ ordenador.
 
 Buscaremos siempre métodos de representación para los modelos a
 representar. Por ejemplo, un prisma puede ser representado por un
-vector de sus vértices (de la STL en nuestro caso).
+vector de sus vértices (vector de la STL en nuestro caso).
 
 Una vez hayamos establecido nuestro modelo debemos de utilizar OpenGL
 para poder representarlo.
@@ -114,7 +114,7 @@ for(int i = 0; i < Edges.size; i++){
     glVertex3f(Vertices[Edges[i].0]);
 	glVertex3f(Vertices[Edges[i].1]);
 }
-gLend();
+glEnd();
 
 	
 ```
@@ -172,8 +172,3 @@ O3DS::DrawPoints(){
 <!-- el tamaño en una variable para tamaños muy grandes del -->
 <!-- vector. -->
 
-:)
-
-hola holaaa
-bonitos apuntes
-:) (la de antes fue Jose Antonio)
