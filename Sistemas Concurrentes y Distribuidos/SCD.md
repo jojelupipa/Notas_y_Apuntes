@@ -160,3 +160,71 @@ principio a fin por un único proceso, sin que otro las esté ejecutando
 a la vez.
 
 
+Los conjuntos de instrucciones que deben de ejecutarse de este modo se
+denomina **sección crítica**.
+
+Ejemplo:
+
+```c++
+x = 0;
+cobegin
+x = x+1;
+x = x-1;
+coend
+```
+
+Si imprimiésemos aquí x, al estar ejecutándose todas sus sentencias
+de manera concurrente, las instrucciones elementales de carga, suma y
+escritura de cada sentencia, al acceder a la misma variable, se pueden
+superponer estas, pudiendo obtener resultados indeseados e
+inesperados.
+
+Para solucionar esto indicamos la exclusión mutua con los signos `<` y
+`>`: “`<sentencia>`”
+
+Ejemplo de esto con el mismo código anterior sería:
+
+```c++
+x = 0;
+cobegin
+<x = x+1>;
+<x = x-1>;
+coend
+```
+
+## Propiedades de los sistemas concurrentes
+
+Hay dos tipos de propiedades que son ciertos para todas las posibles
+secuencias de interfoliación:
+
+### Seguridad(Safety)
+
+Condiciones que deben cumplirse siempre para evitar situaciones
+perjudiciales. Se realizan de manera estática y suelen restringir las
+interfoliaciones indeseadas.
+
+Ejemplos:
+
+* **Exclusión mutua**
+
+* **Deadlock-freedom:** Nadie esperará a sucesos que nunca sucederán
+
+* **Productor-Consumidor:** El consumidor debe consumir todos los datos
+  producidos por el productor en el orden de producción.
+  
+### Vivacidad(Liveness)
+
+Son propiedades que deben cumplirse “eventualmente”. Estas se realizan
+de manera estática, lo que las hace más difícil de comprobar.
+
+Ejemplos:
+
+* **Starvation-freedom:** Un proceso no puede ser indefinidamente
+  propuesto, en algún momento deberá avanzar.
+  
+* **Fairness:** Un proceso que desee avanzar deberá hacerlo con
+  justicia relativa con respecto a los demás. Más ligado a la
+  implementación, existen varios grados de esta.
+  
+  
+
