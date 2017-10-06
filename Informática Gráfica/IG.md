@@ -172,3 +172,36 @@ O3DS::DrawPoints(){
 <!-- el tamaño en una variable para tamaños muy grandes del -->
 <!-- vector. -->
 
+<!-- 06/10/2017 -->
+
+Para realizar un giro de ángulo $\alpha$ sobre el eje y las
+coordenadas de x,z cambian del siguiente modo:
+
+$$x=R\cdot cos(\alpha)$$
+$$z=R\cdot sen(\alpha)$$
+
+La coordenada y, se mantendría constante al hacer el giro sobre ese
+mismo eje.
+
+El ángulo se calculará en un bucle que dividirá 2$\pi$ en N partes.
+
+Cuando se dibuje la figura de revolución resultante hay que tener en
+cuenta que, si bien las tapas forman triángulos, las demás caras
+forman cuadriláteros, por lo cual debemos de utilizar triángulos para
+representarlas. Para ello dispondremos todos los vértices de la figura
+en una matriz que nos sirva para unir todos los puntos de manera que
+formen triángulos. Esto lo haremos direccionando dicha matriz de tal
+modo que cada vértice que se representa se una con sus elementos
+adyacentes y con los elementos adyacentes que corresponderían al
+trazado de una diagonal.
+
+De este modo, al modelar los triángulos los pares y los impares (Para
+cada cuadrilátero hay una cara superior y otra inferior) se forman
+siguiendo una regla distinta para cada uno de ellos.
+
+Tpar= P(i+1,j),P(i,j), P(i,j+1)
+Timpar= P(i,j+1),P(i+1,j+1),P(i+1,j)
+
+Los triángulos superiores de la fila superior de la matriz, así como
+los inferiores de la última fila no se pintarán, pues son triángulos
+"degenerados", con dos puntos que son iguales.
