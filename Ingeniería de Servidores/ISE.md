@@ -307,12 +307,39 @@ tienen una lista de características consultables llamada *Datasheet*.
   La mayor velocidad que podemos obtener lo haremos con la que más
   memoria nos permita tener a nuestro alcance. En las tecnologías de
   memoria actuales las DDR4 son las más recientes y veloces
-  <!--Dato pendiente de confirmar-->
+
+
+<!-- 05/10/2017 -->
+
+  
+* **Ranuras de expansión:** Permiten la conexión con otras tarjetas de
+  circuito impreso.
+  
+  Buses:
+  
+  **PCI:** Peripherial Component Interconnect. Son half-duplex. Sus
+  frecuencias son muy bajas, para ciclos relativamente lentos.
+
+  **AGP:** Accelerated Graphics Port
+  
+  Con el tiempo todos estos protocolos han sido superados por
+  PCI-Express
+  
+  **PCIe:** No es un bus, es una conexión punto a punto. Full-duplex,
+  esto lo consigue ya que cada LANE estáa compuesta por 4 cables. El
+  reloj está embebido en los datos. Es hot plug. Su codificación ha
+  avanzado tanto que por cada 130b que envía 128b son de datos y solo
+  tiene dos extra, lo cual disminuye la sobrecarga frente a los 8b/10b
+  de versiones anterior
+
+
+
+* **Almacenamiento Permanente:** Sirven para almacenar información de
+  manera “permanente”, a diferencia de la RAM, no es volátil. Existen
+  distintos tipos (magnéticos, ópticos, SSD...) y distintos protocolos
+  (ATA, SATA, SATAe, SCSI, USB...)
   
   
-
-
-
-
-
-
+* **Chipset:** Es el conjunto de circuitos integrados que se encargan
+  de controlar las comunicaciones entre los diferentes componentes de
+  la placa base.

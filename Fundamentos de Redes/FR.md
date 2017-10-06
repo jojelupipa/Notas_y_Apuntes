@@ -116,3 +116,70 @@ internet:
 * Redes troncales ATM, SDH, SONET, etc) de grandes operadores de
   telecomunicaciones.
   
+ <!-- Falta todo lo del día 27/09/2017
+	 -Diseños de protocolos
+	 
+	 (Hasta la quinta página de las diapositivas)
+ -->
+
+# Tema 2. Servicios y Protocolos de Aplicación en Internet
+  
+
+<!-- 4/09/2017-->
+Una aplicación debe de tener unos requisitos, entre estos se encuentran:
+
+* **Pérdidas de datos:** Algunas aplicaciones pueden tolerar las
+  pérdidas de datos, tales como streamings de audio/vídeo, pero otras
+  deben de asegurar la fiabilidad de la trasferencia (transferencia de
+  archivos).
+  
+* **Requisitos temporales:** También pueden necesitar un pequeño
+  retraso (delay) para ser efectivos. Un streaming también tiene el
+  requisito de que este retraso no sea excesivo, o en los videojuegos
+  es necesaria esa sincronización para evitar el lag.
+  
+* **Rendimiento(Throughput):** Algunas apps también necesitan un ritmo
+  determinado de envío de datos.
+  
+* **Seguridad:** La encriptación, autenticación y no repudio (no
+  puedes negar ser el remitente de un envío de datos) son
+  factores importantes en las aplicaciones.
+  
+
+## Protocolos de transporte
+
+En la capa de transporte existen diversos protocolos:
+
+* **Servicio TCP:** Está orientado a conexión (establecer una conexión
+  entre los dos involucrados previo al envío), este transporte es
+  fiable ante pérdidas, con control de flujo y de congestión.
+  
+* **Servicio UDP:** No está orientado a conexión, es decir, no se
+  comprueba que ambos estén preparados para realizar la
+  comunicación. A su vez carece de todas las propiedades que acabamos
+  de destacar sobre TCP.
+  
+Estos al ser usuarios del protocoolo IP (Capa de red) no garantizan el
+retardo acotado, las fluctuaciones acotadas, el mínimo throughput y la
+seguridad requerida.
+
+## Servicios de Nombres de Dominio (DNS)
+
+<!-- Polling, explicado haciendo uso de un peluche de angry birds -->
+
+Es un servicio (implementado en un servidor) que se encarga de
+traducir los nombres a direcciones IP.
+
+Tiene una estructura jerárquica en dominios:
+
+ParteLocal.dominioNivelN.(...).dominioNivel1
+
+Donde Nivel1 es el dominio genérico.
+
+La ICANN se encarga de delegar los nombres y números asignados.
+
+
+
+
+  
+  
