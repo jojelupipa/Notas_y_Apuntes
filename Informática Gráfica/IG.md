@@ -205,3 +205,37 @@ Timpar= P(i,j+1),P(i+1,j+1),P(i+1,j)
 Los triángulos superiores de la fila superior de la matriz, así como
 los inferiores de la última fila no se pintarán, pues son triángulos
 "degenerados", con dos puntos que son iguales.
+
+
+<!-- 13/10/2017 -->
+
+**Práctica 3**
+
+Para la tercera práctica añadiremos un nuevo objeto al resultado de la
+práctica anterior, usaremos un barrido lineal para generar nuevos
+objetos. Dada una base generaría una base superior y las
+correspondientes caras que conformarán.
+
+La **translación** de un objeto se hará haciendo uso de la suma, esta
+función transformará cada vértice del objeto, aplicando la misma
+transformación sobre cada uno de ellos.
+
+La **escala** por su parte hará uso del producto. Sólo nos interesa
+obtener un cambio en el tamaño de la figura, sin importar un
+hipotético cambio de centro del objeto. De modo que cada coordenada
+de cada vértice se multiplicaría por la misma constante de la
+escala. Se hacen con respecto al origen.
+
+Cada coordenada tendrá un factor multiplicativo según nos interese. Si
+multiplicamos por algún número negativo estaríamos cambiando el
+vértice de cuadrante.
+
+La otra transformación más común es la **rotación**, todo punto deberá
+rotar respecto a un eje determinado. Esto se conseguirá manteniendo la
+coordenada del eje respecto al que gira y posteriormente multiplicar las
+otras dos coordenadas por el seno y el coseno del ángulo a rotar y
+operar con el resultado según proceda. 
+<!-- La fórmula concreta está en los apuntes --> 
+
+
+
