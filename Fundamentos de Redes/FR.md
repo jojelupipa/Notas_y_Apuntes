@@ -11,6 +11,7 @@ geometry: margin=1in        			# Tamaño de los márgenes
 \newpage
 
 <!--13/09/2017-->
+<!--
 **Presentación**
 
 *) Viernes a partir de las 9:00 se abren las plazas de los grupos de
@@ -19,7 +20,7 @@ prácticas
 *) Empezamos los seminarios en dos semanas (La semana del 25)
 
 *) El sistema de evaluación está en la página dtstc.ugr.es/it
-
+-->
 
 # Tema 1.
 
@@ -116,6 +117,19 @@ internet:
 * Redes troncales ATM, SDH, SONET, etc) de grandes operadores de
   telecomunicaciones.
   
+  
+**Tipos de Tier de ISP:**
+
+* Tier 1: Los grandes proovedores hacen acuerdos de peering para no
+  cobrarse los servicios mutuamente, sino que solo gestionan el
+  tráfico entre ellos. Sólo tienen acuerdos de peering.
+
+* Tier 2: Tienen tanto acuerdos de peering como pagos a otros ISP más
+  grandes que puedan gestionar su tráfico.
+
+* Tier 3: Pagan por los acuerdos de tránsito. No pueden permitirse
+ negociar para hacer peering.
+ 
  <!-- Falta todo lo del día 27/09/2017
 	 -Diseños de protocolos
 	 
@@ -178,8 +192,59 @@ Donde Nivel1 es el dominio genérico.
 
 La ICANN se encarga de delegar los nombres y números asignados.
 
+<!--Falta completar lo último de esta clase-->
 
 
+<!-- 11/10/2017 -->
 
-  
-  
+### Resolución distribuida
+
+El ordenador original no resuelve todo el nombre del dominio. Este
+conecta con un servidor que será el encargado de conectar
+iterativamente con el resto de servidores. 
+
+De esta manera nos conectaríamos con los servidores “.”, los de
+dominio (Top-Level Domain, TDL), servidores Locales y servidores
+Autorizados y Zona.
+
+
+## La navegación Web
+
+Una página web es un fichero (HTML) formado por objetos dicheros HTML,
+imágenes, applets y demás tipos de archivo. Cada objeto se direcciona
+con una URL. Que tiene su **puerto bien definido**, el 80.
+
+El protocolo HTTP sigue un modelo cliente-servidor. El cliente es el
+que pide, recibe y muestra objetos web mediante el browser. El
+servidor por su parte es el que envía los objetos web en respuesta a
+peticiones. 
+
+### Características HTTP
+
+**TCP al puerto 80:** Inicio de conexión TCP, envío HTTP, cierre de
+conexión TCP.
+
+**HTTP es “stateless” $\rightarrow$ Cookies:** El servidor no mantiene
+la informacióń sobre las peticiones de los clientes. 
+
+La conexión puede ser persistente o no persistente. En el primer caso
+se pueden enviar múltiples objetos sobre una única conexión TCP entre
+cliente y servidor, mientras que la no persistente crea nueva conexión
+para cada objeto a enviar.
+
+El persistente tiene un tiempo de transmisión total menor que el no
+persistente. Pero el no persistente permite gestionar mejor los
+recursos del servidor, pues no tiene que mantener el socket abierto
+durante toda la conexión.
+
+Hay dos tipos de mensajes HTTP: request y reponse. La petición de un
+elemento y su concesión.
+
+
+**Caché:** Cuando se solicitan numerosas veces algo a un servidor es
+conveniente configurar un proxy intermedio que almacene dicha
+solicitud. De ese modo quien solicite ese mismo servicio no
+involucrará al servidor original sino al proxy, este sólo le envía una
+petición al servidor original para saber si es necesario actualizar la
+caché o no.
+
