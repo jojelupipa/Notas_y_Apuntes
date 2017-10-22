@@ -343,3 +343,54 @@ tienen una lista de características consultables llamada *Datasheet*.
 * **Chipset:** Es el conjunto de circuitos integrados que se encargan
   de controlar las comunicaciones entre los diferentes componentes de
   la placa base.
+
+<!-- 19/10/2017 -->
+
+* **Memoria ROM:** También llamada firmware, es un tipo de memoria no
+volátil que almacena el código de arranque del ordenador. Identifica
+los dispositivos instalados, hacer el Power-on self-test del sistema y
+arrancar el SO.
+
+Cada placa suele contentener un conjunto de parámetros definidos por
+el usuario que se almacenan mediante una memoria RAM-CMOS alimentada
+por una pila (la misma pila que alimenta el reloj en tiempo real).
+
+# Tema 3
+
+## Concepto de Monitor de Actividad
+**Definiciones:**
+
+* **Carga:** Conjunto de tareas que ah de realizar un sistema.
+
+* **Actividad de un sistema:** Conjunto de operaciones que se realizan
+  en el sistema como consecuencia de la carga que tiene.
+  
+La actividad de un sistema puede estar reflejada por otras variables
+tales como los procesadores, la memoria, los discos, la red y el
+sistema global. 
+
+Podemos estudiar cómo un sistema se adapta a un determinado tipo de
+carga usando un **monitor de actividad**. Estos nos permiten medir la
+actividad, procesar la información y mostrar los resultados.
+
+Las ventajas de usar un monitor están en la posibilidad de localizar
+los cuellos de botella, predecir cargas futuras, tarificar a los
+clientes, obtener modelos para realizar estudios (para
+Administradores), Conocer las partes críticas (hot spot) de una
+aplicación (para programadores) y adaptarse dinámicamente a la carga
+(para el Sistema Operativo).
+
+Hay distintos **tipos de monitores**, **por eventos**, cada vez que
+ocurre algún determinado evento se realiza el estudio. También están
+los **monitores por muestreo**, que recaban información estadística
+cada un determinado tiempo de muestreo T.
+
+Los monitores pueden ser tanto Software (programas), Hardware
+(dispositivos físicos) como Híbridos.
+
+Una medida, a su vez, viene determinada por su exactitud, precisión,
+resolución del monitor/sensor, período de muestreo, tasa máxima de
+entrada, anchura de entrada y sobrecarga.
+
+
+

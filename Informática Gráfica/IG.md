@@ -1,7 +1,8 @@
 ---
 title: Informática Gráfica						# Título
 author: Jesús Sánchez de Lechina Tejada		# Nombre del autor
-header-includes:      	 	        	# Incluir paquetes en LaTeX
+header-includes: # Incluir paquetes en LaTeX
+	- \usepackage{dsfont}
 toc: true                   			# Índice
 numbersections: false       			# Numeración de secciones
 fontsize: 11pt              			# Tamaño de fuente
@@ -237,5 +238,24 @@ otras dos coordenadas por el seno y el coseno del ángulo a rotar y
 operar con el resultado según proceda. 
 <!-- La fórmula concreta está en los apuntes --> 
 
+<!-- 20/10/2017 -->
 
+Para trabajar estas transformaciones haríamos uso de matrices para las
+operaciones, y los puntos serían representados por vectores. Rotación
+y escala se podían expresar mediante matrices cuadradas de
+orden 3. Pero para la translación tendríamos que hacer uso de
+coordenadas homogéneas, aumentar la dimensión mediante una aplicación
+de $\mathds{R} ^3$ en $\mathds{R} ^4$ (x,y,z)
+$\rightarrow$(xw,yw,zw,w).
 
+Su inversa sería (x,y,z,w) $\rightarrow$ (x/w,y/w,z/w,1).
+
+Estas transformaciones openGL las implementa usando una pila que
+modificaremos con glMatrixMode(GL_MODELVIEW), ahí usaremos las
+operaciones de transformación que nos ofrece openGL. Hemos de tener en
+cuenta la peculiaridad de que, las transformaciones que vayamos
+almacenando en esta pila se realizarán en el orden inverso al
+introducido, es decir, que si queremos rotar un punto y después
+trasladarlo primero tendremos que introducir el glTranslate(x,y,z) y
+posteriormente introduciremos el glRotate(angulo,x,y,z) (x,y,z definen
+el eje de rotación)
