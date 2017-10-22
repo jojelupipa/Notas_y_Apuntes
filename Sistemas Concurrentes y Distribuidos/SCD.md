@@ -45,8 +45,24 @@ programas. En sistemas monoprocesador evita esperas ociosas y el uso
 por parte de varios usuarios. En sistemas multiprocesador permite
 distribuir las tareas para acelerar el tiempo de ejecución.
 
-<!-- Faltan cosas de las diapositivas desde el principio hasta la -->
-<!-- página 21 (Grafos de sincronización) -->
+La concurrencia variará en tanto a la arquitectura del computador
+usado, pues en monoprocesadores usaremos un paralelismo virtual que
+simplemente nos permitirá gestionar mejor el tiempo, mientras que en
+otras arquitecturas, tanto en multiprocesadores como en sistemas
+distribuidos se permite un parelelismo real, pues cada unidad de
+procesamiento puede gestionar una tarea distinta, manteniendo una
+conexión entre todas ellas según sea necesario.
+
+## Modelo Abstracto de concurrencia
+
+Los conjuntos de instrucciones que ejecuta un computador puede ser
+atómica o no atómica.
+
+Decimos que es **atómica** cuando se tiene que ejecutar de principio a
+fin sin verse afectada por otros procesos del programa.
+
+Decimos que es **no atómica** en caso contrario.
+
 
 <!--20/09/2017-->
 Un **Grafo de sincronización** es un Grafo Dirigido Acíclico donde
@@ -54,8 +70,6 @@ cada nodo representa una secuencia de sentencias del programa. Este
 restringe las sentencias que pueden ser ejecutadas o que dependen de
 la finalización de otras anteriores. Es decir, demuestran el
 *paralelismo potencial* del programa.
-
-## Modelo Abstracto de concurrencia
 
 ### Definición estática de procesos
 El número de procesos no cambian entre ejecuciones.
