@@ -248,3 +248,61 @@ involucrará al servidor original sino al proxy, este sólo le envía una
 petición al servidor original para saber si es necesario actualizar la
 caché o no.
 
+## Correo Electrónico
+
+### Proceso de envío de correo electrónico
+En el correo electrónico intervienen dos clientes que enviarán y
+recibirán el correo cuando ellos decidan. El procedimiento es el
+siguiente:
+
+El usuario de origen utiliza su user agent para mandar el correo a su
+servidor de correo, se envía mediante SMTP o HTTP. Una vez hecho esto,
+el servidor del que envía el mensaje crea una conexión TCP con el
+servidor de correo del usuario destinatario y lo envía. El servidor de
+destino almacena el mensaje en la bandeja de entrada del usuario
+destino. El destinatario usará su agente de usuario arbitrariamente
+para leer el mensaje utilizando POP3, IMAP o HTTP.
+
+## Protocolos Seguros
+
+Hay unos aspectos destacables de la seguridad en internet:
+
+* **Confidencialidad:** Sólo quien esté autorizado a acceder a la
+  información puede hacerlo.
+  
+* **Responsabilidad:** Autenticación, confirmar que los agentes de
+  comunicación son quien dicen ser. No repudio: No se pueda negar la
+  autoría de una acción y que la acción se ha hecho. Control de
+  accesos: Garantía de identidad para el acceso.
+  
+* **Integridad:** La información no debe ser manipulada.
+
+* **Disponibilidad:** El acceso a los servicios debe estar regulado
+  para evitar, por ejemplo, ataques Denial Of Service.
+  
+También hay un conjunto de mecanismos de seguridad:
+
+* **Cifrado Simétrico:** Utilizamos la misma clave para
+  cifrar/descifrar (DES,3DES,AES,RC4).
+  
+* **Cifrado Asimétrico:** Una clave distinta para encriptar y para
+  desencriptar (Diffie & Hellman, RSA).
+  
+  Se pueden combinar simétrico y asimétrico, le envío al receptor la
+  clave del cifrado simétrico cifrada con su clave pública, él la
+  desencriptará con su privada y así compartiremos la clave simétrica
+  para aumentar la velocidad de las comunicaciones.
+  
+* **Message Authentication Code:** Hay que impedir que se modifiquen
+  los archivos de envío durante el mismo. El mensaje se pasa por un
+  hash con una clave que no se puede modificar sin tener la misma
+  clave.  (MD5, SHA-1...)
+  
+* **Firma Digital:** Se pasa por un hash el mensaje, se cifra con la
+  clave privada y cualquier receptor puede descifrar la firma y
+  comparar el resultado con el hash del mensaje recibido, si coinciden
+  se garantizaría la autoría.
+
+* **Certificado:** Para asegurar que las claves pertenecen al
+  remitente existen terceros que lo garantizan. Estos terceros son
+  confiados y aceptados “públicamente”.
