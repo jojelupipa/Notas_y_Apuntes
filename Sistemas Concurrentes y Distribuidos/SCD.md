@@ -63,6 +63,11 @@ fin sin verse afectada por otros procesos del programa.
 
 Decimos que es **no atómica** en caso contrario.
 
+Las sentencias atómicas pueden ejecutarse en orden distinto, a esto se
+le llama **interfoliación**. A veces un programa requiere que unas
+sentencias tengan una interfoliación determinada, para evitar fallos y
+asegurarse el correcto funcionamiento del programa.
+
 
 <!--20/09/2017-->
 Un **Grafo de sincronización** es un Grafo Dirigido Acíclico donde
