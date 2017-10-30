@@ -392,5 +392,42 @@ Una medida, a su vez, viene determinada por su exactitud, precisión,
 resolución del monitor/sensor, período de muestreo, tasa máxima de
 entrada, anchura de entrada y sobrecarga.
 
+<!-- 26/ 10/2017 -->
+## Monitorización a nivel de sistema
+
+Existen diversas utilidades y registros que nos permiten obtener
+información acerca de nuestro ordenador.
+
+Directorio **/proc**: Es una carpeta en RAM utilizada por el núcleo de
+Unix que nos permite obtener información sobre los datos del kernel.
+
+**uptime:** Indica el tiempo que lleva el sistema en marcha y la
+“carga media” que soporta. 
 
 
+**ps** (process status): Información sobre el estado actual de los
+procesos del sistema.
+
+**top:** Cada T segundos muestra carga media, procesos, consumo de
+memoria... Normalmente se ejecuta en modo interactivo.
+
+**vmstat:** Paginación, swappong, interrupciones, cpu...
+
+**Monitor sar:** Muy utilizado para la detección de cuellos de botella
+en sistemas Unix. Almacena tanto información actual como histórica
+haciendo uso de */proc* para ello.
+
+Se basa en dos órdenes complementarias: *sadc* para recopilar datos
+estadísticos y *sar* para leerlos y traducirlos a formato legible.
+
+Además existen multitud de programas y herramientas como CollectL,
+Nagios, Munin, SarCheck... que se utilizan con fines similares.
+
+## Monitorización a nivel de aplicación (profilers)
+
+Observan el comportamiento de una aplicación para optimizar su código,
+permiten obtener información sobre un programa, en qué parte del
+código pasa la mayor parte del tiempo, cuantas veces se ejecuta cada
+línea...
+
+**time** *(/usr/bin/time)*: Recibe como argumento un programa, y lo analiza
