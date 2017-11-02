@@ -431,3 +431,70 @@ código pasa la mayor parte del tiempo, cuantas veces se ejecuta cada
 línea...
 
 **time** *(/usr/bin/time)*: Recibe como argumento un programa, y lo analiza
+
+<!-- 02/11/2017 -->
+
+# Tema 4. Análisis Comparativo del Rendimiento
+
+## Índices clásicos de rendimiento
+
+Características de un índice de rendimiento.
+
+**Fiabilidad:** Si un sistema indica que A es mejor que B es porque
+siempre el rendimiento de A es mejor que el de B.
+
+**Linealidad:** Si el índice de rendimiento aumenta, el rendimiento
+real aumenta en la misma proporción.
+
+**Repetibilidad:** Que el sistema de medida ante las mismas
+condiciones devuelve los mismos resultados.
+
+**Consistencia y facilidad de medición:** Este índice debe ser medible
+desde cualquier sistema y siempre del mismo modo.
+
+* **Tiempo de ejecución**
+* **MIPS**
+* **MFLOPS** (Normalizados: operaciones simples, como la suma, resta,
+  multiplicación o comparación, otras como la división requieren más
+  operaciones)
+  
+Todos estos índices tienen diversos problemas, pues no se logran
+adaptar perfectamente a cualquier situación, pues cada computador
+puede tener arquitecturas distintas y pueden no ser representativos.
+
+En su lugar intentamos medir qué ordenador es el más rápido para
+distintos tipos de carga. Lo que se conoce como “*Benchmarking*”.
+
+## Benchmarking
+
+Evaluar la carga real que un ordenador tiene que soportar no es
+viable, pues esta puede cambiar en tiempo real y no es previsible. En
+su lugar se utilizan **modelos de carga**. Aproximaciones de la carga real
+que puede recibir un sistema informático.
+
+Para hacer estos modelos es necesario identificar los recursos que más
+demande la carga y hacer la recolección y análisis de datos oportuno.
+
+El **benchmarking** es un test de rendimiento que permite someter a la
+misma carga distintos sistemas informáticos, esta carga pretende ser
+lo suficientemente genérica como para ser representativa.
+
+Existen distintos tipos de benchmark:
+
+* **Microbenchmark:** Es el benchmark para componentes específicos, ya
+  sea caché, memoria, procesador... En general es mucho más difícil de
+  medir, pues no es sencillo aislar un componente.
+  
+* **Macrobenchmark:** Benchmark para una aplicación real, mide
+  conjuntos de aplicaciones habitualmente utilizadas en un área.
+  
+Uno de los microbenchmarks más reconocidos es el SPEC, que tiene
+algunos índices significativos:
+
+**Base:** Compilación en modo conservador, con reglas estrictas para que
+todos usen las mismas opciones de compilación.
+
+**Peak:** Es el rendimiento pico, permitiendo la elección de las
+opciones óptimas para cada programa.
+
+
