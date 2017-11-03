@@ -15,7 +15,7 @@ geometry: margin=1in        			# Tamaño de los márgenes
 <!-- 22/09/2017-->
 # Introducción
 <!--
-Profesor: Domingo Martin Perandrés 
+Profesor: Domingo Martin Perandrés
 Correo: dmartin@ugr.es
 -->
 Conceptos previos para Informática Gráfica:
@@ -23,13 +23,13 @@ Conceptos previos para Informática Gráfica:
 * **Operaciones con vectores (2,3 y 4D)**
 
   -Producto escalar
-  
+
   -Producto vectorial
-  
+
   -Modulo
-  
+
   -Normalización
-  
+
   -Regla de la mano derecha
 
 
@@ -43,12 +43,12 @@ Conceptos previos para Informática Gráfica:
 * **Trigonometría básica**
 
 * **Ecuación de la recta (explicita, implícita,
-  paramétrica)** 
+  paramétrica)**
 
   -Senos y cosenos
-  
+
   -Teorema de Pitágoras
-  
+
   -C. cartesianas $\Leftrightarrow$ C. polares
 
 * **Ecuación de la recta (explicita, implícita, paramétrica)**
@@ -71,7 +71,7 @@ Una vez hayamos establecido nuestro modelo debemos de utilizar OpenGL
 para poder representarlo.
 
 En OpenGL hay ciertas directivas, para dibujar el prisma que pensamos
-previamente deberíamos comenzar por dibujar punto a punto 
+previamente deberíamos comenzar por dibujar punto a punto
 
 
 ```c++
@@ -117,7 +117,7 @@ for(int i = 0; i < Edges.size; i++){
 }
 glEnd();
 
-	
+
 ```
 
 Con esto pintaríamos nuestras líneas, que deben pintarse
@@ -145,7 +145,7 @@ El archivo cabecera quedaría así:
 
 class O3DS{
 	std::vector<vertex> vertices;
-	
+
 	public void DrawPoints();
 };
 ```
@@ -158,11 +158,11 @@ Y el fuente que implementa la cabecera, así:
 
 O3DS::DrawPoints(){
     glBegin(GL_POINTS);
- 
+
     for(int i = 0; i < vertices.size(); i++){
 		glVertex3f(vertices[i].x,vertices[i].y,vertices[i].z);
 	}
-	
+
 	glEnd();
 }
 
@@ -235,8 +235,8 @@ La otra transformación más común es la **rotación**, todo punto deberá
 rotar respecto a un eje determinado. Esto se conseguirá manteniendo la
 coordenada del eje respecto al que gira y posteriormente multiplicar las
 otras dos coordenadas por el seno y el coseno del ángulo a rotar y
-operar con el resultado según proceda. 
-<!-- La fórmula concreta está en los apuntes --> 
+operar con el resultado según proceda.
+<!-- La fórmula concreta está en los apuntes -->
 
 <!-- 20/10/2017 -->
 
@@ -259,3 +259,117 @@ introducido, es decir, que si queremos rotar un punto y después
 trasladarlo primero tendremos que introducir el glTranslate(x,y,z) y
 posteriormente introduciremos el glRotate(angulo,x,y,z) (x,y,z definen
 el eje de rotación)
+
+<!-- Falta lo del día 27, por lo general era explicar cómo hacer bien -->
+<!-- las transformaciones (el orden adecuado) y cómo hacer un brazo robot -->
+<!-- "jerarquizado" de una manera que no era la definitiva que -->
+<!-- funcionaría  -->
+
+<!--03/11/2017 -->
+
+La jerarquía era: Con el brazo 2 se crea el 1 y con el brazo 1 se crea
+la base.
+
+El brazo 1 podía girar respecto al eje Y y respecto al eje Z. El
+segundo brazo sólo podía moverse sobre el eje Z.
+
+Estas transformaciones que mueven los objetos alteran el modelo final.
+
+En el grafo se pueden indicar las conexiones de cada objeto del grafo,
+es decir, ver a partir de qué objeto se obtiene el elemento del grafo
+y las transformaciones en la pila necesarias para formarlo, además se
+puede indicar cuál es el resultado final.
+
+Lo correcto es empezar a modelar "desde lo más simple hasta lo más
+complejo". Por ejemplo a la hora de modelar el robot, se empezaría por
+"los dedos" del robot.
+
+Por tanto primero generaríamos un único modelo que aparece dos veces,
+a partir de un cubo escalaríamos para adaptarlo a la medida adecuada y
+luego habría que transladarlo, por lo cual en el código
+introduciríamos en la pila el glTranslate y luego el glScale,
+realizando push antes y pop después de realizar las transformaciones.
+
+```
+   +--+
+   |  |
+   +--+
+```
+
+Entonces pasaríamos a construir la Mano. Esta mano estaría compuesta
+por un Dedo, como el que acabamos de hacer, y un cubo que haría de
+muñeca.
+
+```
+  +--+	 +--+
+  |  |	 |	|
+  +--+---+--+
+  |			|
+  +---------+
+```
+
+Para crear esta mano habría que usar la pila después de realizar las
+transformaciones de cada figura.
+
+```
+Push (guardamos la identidad)
+glTranslate
+glScale
+cubo.Draw
+Pop (recuperamos la identidad)
+Push (guardamos la identidad)
+glTranslate
+glDraw
+Pop (recuperamos la identidad)
+Push(guardamos la identidad)
+glTranslate
+cubo.Draw
+Pop (recuperamos la identidad)
+```
+
+Entendemos esto como funciones que llaman a otras funciones e intentan
+recuperar su contexto, como si cada vez que dibujasemos una figura
+quisieramos acumular los cambios que hemos hecho hasta el momento.
+
+Si metiesemos la matriz identidad perderíamos las transformaciones que
+se hiciesen en los siguientes niveles con respecto a la posición de
+la base de la mano, así se quedarían los dedos en una posición que no
+les corresponde. En su lugar hacemos uso de las pilas.
+
+
+
+Ahora queremos construir el "antebrazo", llamado Brazo1. Pues a partir
+de la Mano que acabamos de crear tenemos que primero realizar las
+transformaciones sobre el nuevo cubo para adaptarlo a las medidas
+proporcionadas.
+
+```
+  +--+	 +--+
+  |  |	 |	|
+  +--+---+--+
+  |			|
+  +--+---+--+
+	 |	 |
+	 |	 |
+	 o---o
+```
+
+El código se parecería a esto:
+```
+Push (guardamos la identidad)
+glTranslate
+glScale
+cubo.Draw 
+Pop (recuperamos la identidad)
+Push
+glTranslate
+mano.draw
+Pop
+```
+
+La creación del brazo y la base, lo que nos queda, sería semejante a
+lo que hemos hecho hasta ahora.
+
+
+Lo siguiente sería implementar el movimiento de los elementos,
+empezando por los dedos, que se "abrirían y cerrarían".
