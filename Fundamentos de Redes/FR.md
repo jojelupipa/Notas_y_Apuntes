@@ -306,3 +306,156 @@ También hay un conjunto de mecanismos de seguridad:
 * **Certificado:** Para asegurar que las claves pertenecen al
   remitente existen terceros que lo garantizan. Estos terceros son
   confiados y aceptados “públicamente”.
+
+<!-- 8/11/2017 -->
+
+Diversos **ejemplos** de seguridad criptográfica en distintas capas son:
+
+* **Capa de aplicación:** PGP (Pretty Good Privacy), SSH (Secure Shell).
+
+* **Capa de sesión** (entre aplicación y transporte): SSL (Secure
+  Socket Layer) ,TSL (Transport Secure Layer).
+
+* **Capa de Red:** IPSec(VPN)
+
+También existen elementos de seguridad Perimetral y Gestión de
+riesgos:
+
+* **Firewall:** Sistema que limita los accesos a los elementos de
+  nuestro ordenador. También UTMs se están implementando últimamente,
+  son una extensión de firewalls.
+  
+* **Sistemas de detección de intrusiones** IDS. En red NIDS, en host
+  HIDS. Analizan el tráfico y detectan posibles ataques y anomalías.
+  
+* **Antivirus, evaluación de vulnerabilidades, seguridad en
+  Aplicaciones**, filtrado web/anti-spam.
+  
+* **Advanced Thread Detection:** Listas donde se comparte información
+  de seguridad. Así se permite enterarse cuanto antes de problemas de
+  seguridad.
+  
+* **SEMs, SIEMs:** Realiza el conjunto de las funcionalidades
+  anteriores.
+  
+
+## Aplicaciones multimedia
+
+Son de audio y vídeo. Se procura mejorar la calidad del servicio.
+
+Las aplicaciones de flujo almacenado no dan problemas de delay, sin
+embargo el throughput es más exigente. Sin embargo el delay en
+emisores en directo no pueden tener delay, su velocidad de transmisión
+sigue siendo igual de importante.
+
+Todas estas requieren un alto ancho de banda. Son tolerantes a
+pérdidas de datos. Tienen un Delay y un Jitter(variabilidad del delay)
+acotado. Hacen uso además de multicast (Ejemplo YouTube en las diapositivas).
+
+
+## Aplicaciones para la interconectividad de redes locales
+
+* **DHCP:** Nos permite configurar dinámicamente direcciones IP
+
+
+# Tema 3.
+<!-- Falta el comienzo del tema 3 -->
+
+<!-- 15/11/2017 -->
+## Protocolo Transmission Control Protocol (TCP)
+
+Es un servicio orientado a conexión, con una entrega ordenada
+garantizada. Es además full-duplex-
+
+Tiene un sistema de control de flujo de detección y recuperación de
+errores. Esto se implementa mediante temporizadores que esperan la
+confirmación de la recepción. Si se agota el tiempo se reenvía el
+paquete.
+
+Utiliza “piggybacking”, es decir, en un paquete que va en un sentido
+de la comunicación se añade información sobre el otro sentido de la
+comunicación. Así aprovechan los paquetes de datos para incluir
+información de control.
+
+
+Tiene tanto “timeouts” como ventanas adaptables.
+
+Además es fiable en el control de congestión y flujo.
+
+La información a enviar por TCP se divide en segmentos TCP. 
+Cada uno de esos segmentos contiene información de origen y
+destino. Además contiene información relativa a sí misma y a la
+posición que ocupa esta información respecto al total. Incluye la
+longitud de la cabecera del paquete, junto a un espacio reservado para
+usos concretos, flags, bytes acerca del control de flujo, comprobación
+(checksum) y un puntero a datos que hay que incluir de manera urgente,
+por ejemplo datos de control para subir a la capa de aplicación. (Un
+ejemplo de esto es un servicio streaming al que se le solicita cambiar
+la compresión del vídeo debe de procesarse antes que el resto de los
+datos sobre el vídeo que se deben de procesar “más tranquilamente”)
+
+**Control de la conexión:**
+
+El intercambio de información tiene tres fases (three-way handshake).
+
+1. Establecimiento de la conexión (sincronizar el número de secuencia
+   y reservar recursos).
+   
+2. Intercambio de datos (full-duplex).
+
+3. Cierre de la conexión (liberar recursos).
+
+
+Se abre activamente el cliente y pasivamente el servidor. En esto se
+ven involucrados diversos bits y campos de control.
+
+En primer lugar el cliente solicita la conexión. Luego el servidor
+recibe la petición y envía la confirmación al cliente, una vez hecho
+este el servidor espera una respuesta del cliente para que confirme la
+recepción de este paquete. Entonces el cliente le confirma al servidor
+que sabe que este está listo para la comunicación. Finalmente comienza
+la comunicación.
+
+Para cerrar la conexión se realiza un proceso similar.
+
+**Otros detalles:**
+Los campos del control de conexión tienen 32 bits, osea $2^{32}$ valores.
+
+La inicialización se inicia por el ISN, que es elegido por el
+Los campos del control de conexión tienen 32 bits, osea $2^{32}$ valores. 
+El sistema lo elige, y el estándar sugiere utilizar un contador entero
+incrementado en uno por cada 4 microsegundos. Esto protege de
+coincidencias, pero no de sabotajes.
+
+El incremento se realiza según los bytes de carga útil (payload). Los
+flags SYN y FIN incrementan en 1 el número de secuencia.
+
+**Ejercicio:**
+Se desea transferir con protocolo TCP un archivo de L bytes usando un
+MSS(maximun segment size) de 536.
+
+a) ¿Cuál es el valor máximo de L tal que los números de secuencia de
+TCP no se agoten?
+
+b) Considerando una velocidad de transmisión de 155 Mbps y un total de
+66 bytes para las cabeceras de las capas de transporte, red y enlace
+de datos, e ignorando las limitaciones debidas al control de flujo y
+congestión, calcule el tiempo qeu se tarda en transmitir el archivo en
+A.
+
+
+a) Un segmento tiene $2^{32}$ valores distintos, pero luego tiene dos
+bits del SYN y del FIN. En total el valor máximo de L para que no
+desborde es $2^{32}-2$.
+
+b) Dados los bytes de las cabeceras buscamos obtener el total y luego
+dividimos por la velocidad de transmisión.
+
+Dividimos L entre el tamaño del segmento para saber cuántos segmentos
+tenemos. Cogemos el entero inmediatamente superior de
+$\frac{2^{32}-2}{536}$ para calcular el número de segmentos. Luego
+calculamos el número de bytes así: N_segmentos * 66 + L
+
+Conocidos el número de bytes a transmitir simplemente tenemos que
+dividir por la velocidad $\frac{(N_segmentos\cdot 66 + L)\cdot 8}{155\cdot 10^6bps}
+
