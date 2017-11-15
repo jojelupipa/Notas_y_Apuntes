@@ -210,7 +210,7 @@ los inferiores de la última fila no se pintarán, pues son triángulos
 
 <!-- 13/10/2017 -->
 
-**Práctica 3**
+# **Práctica 3. Jerarquía de Objetos**
 
 Para la tercera práctica añadiremos un nuevo objeto al resultado de la
 práctica anterior, usaremos un barrido lineal para generar nuevos
@@ -373,3 +373,59 @@ lo que hemos hecho hasta ahora.
 
 Lo siguiente sería implementar el movimiento de los elementos,
 empezando por los dedos, que se "abrirían y cerrarían".
+<!-- 10/11/2017 -->
+
+En Qt, si una clase requiere de eventos deberá incluir Q_Object
+
+```c++
+Class miboton{
+Q_OBJECT // Usa el macro definido
+
+public slots:
+	void click(bool); // Así se definiría un slot
+};
+```
+
+
+```c++
+QPushButton *Button1= new QPushButton;
+miboton *Boton1= new miboton
+
+
+
+connect(Button1,SIGNAL(clicked(bool),boton1,SLOT(click(bool));
+```
+
+Para gestionar eventos usaremos un timer y las señales y slots.
+
+Es aconsejable, independientemente de si usamos Qt o Glut, implementar
+una interfaz gráfica de usuario con botones que realicen las tareas
+que realizan ahora mismo las teclas. Además esta interfaz debería de
+ser regulada con los widgets para ajustar su layout.
+
+
+# **Práctica 4. Cámara e iluminación**
+Una cámara que toma una instantánea está definida por la posición de
+la cámara, un vector que defina la orientación de la cámara (a dónde
+mira), y otro vector que define la disposición de la cámara, view-up (la
+rotación que difiere al grabar en horizontal o vertical, por ejemplo).
+
+<!--En los apuntes podemos encontrar el nombre que tienen el punto de -->
+<!--referencia, el view-up y el lugar al que se está mirando -->
+
+Estamos usando dos sistemas de coordenadas, el sistema de coordenadas
+de mundo, común para todos los objetos y el sistema de coordenadas
+local, relativo a cada objeto.
+
+
+En el caso 3D para ajustar un nuevo sistema de coordenadas tendremos
+que trabajar con productos vectoriales a partir del sistema de
+coordenadas de mundo. Haríamos el producto vectorial del vector que va
+desde el origen del SC de mundo hasta el nuevo con el vector
+view-up. Esto nos proporcionaría un vector perpendicular a ambos, pero
+el view up del SC local puede no ser ortogonal a los otros dos, por lo
+tanto realizaríamos otro producto vectorial entre el primer vector y
+el que acabamos de calcular. Así obtendríamos el view-up del SC local.
+
+
+

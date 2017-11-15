@@ -497,4 +497,34 @@ todos usen las mismas opciones de compilación.
 **Peak:** Es el rendimiento pico, permitiendo la elección de las
 opciones óptimas para cada programa.
 
+<!--09/11/2017 -->
+## Análisis de los resultados de un benchmark
+
+El rendimiento es una variable multidimensional, que debería de tener
+múltiples índices, sin embargo es más fácil realizar comparaciones con
+un único índice. Entonces hay que usar algún tipo de media.
+
+La media aritmética tiende a ser desechada, pues puede dar lugar a
+medidas no representativas, por ejemplo si se hiciese la media
+aritmética de los tiempos de ejecución, sólo tendría sentido mejorar
+los programas benchmark grandes que puedan tener mayores variaciones y
+mejoras.
+
+Para intentar solventar esto se puede aplicar una media ponderada,
+dándole un peso a cada programa, dándole un peso inversamente
+proporcional a los tiempos de ejecución de cada programa, ejecutados
+en una máquina de referencia. 
+
+Aun esto resulta ser una medida imprecisa, pues todo depende de la
+máquina de referencia escogida.
+
+Alternativa: La media geométrica. Cuanto menos tiempo tenga mayor será
+el índice. Una máquina tiene mejores especificaciones que otra si la
+média geométrica de la primera es menor que la media geométrica de la
+segunda.
+
+¿Por qué interesa la media geométrica?
+
+Se interesa premiar las mejoras sustanciales, no se castigan los
+empeoramientos no muy sustanciales.
 
