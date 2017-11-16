@@ -528,3 +528,33 @@ segunda.
 Se interesa premiar las mejoras sustanciales, no se castigan los
 empeoramientos no muy sustanciales.
 
+<!-- 16/11/2017 -->
+
+## Introducción al diseño de experimentos
+
+A la hora de realizar un benchmark puede que influyan muchos factores,
+tanto SO, como Memoria RAM, tipo de discos duros...
+
+Terminología:
+
+**Variable respuesta o dependiente:** Índice que usamos para las
+compararciones. 
+
+**Factor:** Cada una de las variables de las que depende nuestra
+variable respuesta.
+
+**Nivel:** Los valores que puede tomar cada factor
+
+**Repetición:** Número de veces que se repite cada experimiento
+
+**Interacción:** El efecto de un determinado nivel de un factor sobre
+la variable de respuesta puede ser diferente para cada nivel de otro
+factor. Por ejemplo, el uso de un determinado SO puede implicar un
+mayor consumo de RAM.
+
+Tipos de diseños:
+
+**Unifactor:** Una configuraciónd determinada como base y se estudia
+un único factor cada vez.
+
+Saber qué es el test ANOVA es importante de cara al examen. 
