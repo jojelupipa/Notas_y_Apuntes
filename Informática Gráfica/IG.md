@@ -427,5 +427,43 @@ el view up del SC local puede no ser ortogonal a los otros dos, por lo
 tanto realizaríamos otro producto vectorial entre el primer vector y
 el que acabamos de calcular. Así obtendríamos el view-up del SC local.
 
+<!--17/11/2017 -->
+**Ejercicio:**
+Dado un VRP=(1,0,1), VPN=(1,0,1) y un VUP=(0,1,0), se pide calcular la
+transformación de la cámara.
+
+Sólo habría que hacer una translación de -VRP  más luego una rotación
+de ángulo -45 grados. Este último ángulo lo obtenemos haciendo uso de
+trigonometría, descomponiendo mediante giros y analizando estos firos
+como triángulos rectángulos.
+
+En los exámenes se suele pedir calcular las transformaciones de vista.
+
+
+**Proyecciones:** El mecanismo que usan las cámaras para reflejar un
+modelo 3D se llama proyección. En una proyección se involucran el
+punto a proyectar, la superficie de proyección (la más simple, por
+ejemplo, es el plano), las líneas de proyección que salen del punto a
+proyectar (centro de proyección), cada una de estas intersecta con el
+plano de proyección en un punto.
+
+La diferencia de la perspectiva frente a la proyección paralela es que
+el centro de proyección en la paralela está en el infinito, esto es,
+las rectas de proyección serían paralelas(las rectas convergen en el
+infinito). 
+
+Esta proyección en la realidad no existe, pero se utiliza
+"matemáticamente" pues estas proyecciones no producen ninguna "deformación".
+
+Cuando tenemos un punto delante del centro de proyección y otro detrás
+se produce una distorsión topológica.
+
+En openGL se usa glFrustum(xmin,xmax,ymin,ymax,PD,PT) y
+glOrtho(<mismos_parámetros>) para la proyección perspectiva-paralela.
+PD sería el plano delantero y PT el plano trasero, que elimina todo lo
+que esté por delante (PD) o por detrás de ellos (PT)
+respectivamente. Además, al estar en una pantalla de ordenador debemos
+limitar la altura y la anchura de la pantalla/ventana, pues más allá
+no se puede ver.
 
 
