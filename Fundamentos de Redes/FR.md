@@ -457,5 +457,49 @@ $\frac{2^{32}-2}{536}$ para calcular el número de segmentos. Luego
 calculamos el número de bytes así: N_segmentos * 66 + L
 
 Conocidos el número de bytes a transmitir simplemente tenemos que
-dividir por la velocidad $\frac{(N_segmentos\cdot 66 + L)\cdot 8}{155\cdot 10^6bps}
+dividir por la velocidad $\frac{(N_{segmentos}\cdot 66 + L)\cdot 8}{155\cdot 10^6bps}$
 
+
+<!--22/11/2017 -->
+
+**Control de errores y de flujo**:
+
+El control de flujo regula ámbitos como la velocidad de transmisión,
+mientras que el de errores comprueba si se transmiten correctamente
+los paquetes.
+
+Después del three-way handshake comienza la conexión. Un paquete (con
+su retardo de transmisión al ser enviado) se transmite al receptor
+(que lo recibe en un tiempo de propagación. El receptor le responde
+con un paquete minúsculo que sólo tendría un breve retardo de
+propagación (paquete con las cabeceras).
+
+Por tanto el tiempo total sería igual a dos veces el retardo de
+propagación, más el tiempo de tranmisión del paquete inicial, más el
+tiempo de transmisión del paquete de respuesta (tiempo despreciable),
+más el tiempo de recepción de este último (también despreciable).
+
+En la práctica se realizan envíos en ventanas de varios paquetes como
+este. Es una **ventana deslizante** pues cada vez que recibe la
+confirmación de la recepción de un paquete permite enviar uno nuevo,
+manejando así un número fijo de paquetes. 
+
+El control de errores estudia el checksum de los paquetes, si el
+receptor deshecha un paquete, el emisor, tras acabar el temporizador
+del paquete sin haber recibido una confirmación, reenvía el paquete.
+
+**ACK**: Siguiente byte que está esperando el receptor.
+
+Existen una serie de reglas para cuando se produzcan diversos errores.
+<!-- En las diapositivas aparecen -->
+
+Los timeouts del control de errores varían dinámicamente. Esto se
+realiza mediante una estimación de la situación en la red. 
+
+En primer lugar el timeout tiene que ser mayor que el tiempo de ida y
+vuelta (RTT). Al menos dos veces el tiempo de transmisión. Luego hay
+que controlas si es demasiado corto, pues produciría timeouts
+prematuros, o demasiado largo, pues generaría grandes esperas
+innecesarias.
+
+$$x_t = x_{t-1}\alpha + y_t(1-\alpha) ; \alpha \in [0,1)$$
