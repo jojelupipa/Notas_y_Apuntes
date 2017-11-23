@@ -557,4 +557,115 @@ Tipos de diseños:
 **Unifactor:** Una configuraciónd determinada como base y se estudia
 un único factor cada vez.
 
-Saber qué es el test ANOVA es importante de cara al examen. 
+Saber qué es el test ANOVA y para qué sirve es importante de cara al
+examen. 
+
+<!-- 23/11/2017 -->
+\newpage
+# Tema 5. Análisis operacional en servidores.
+
+Modelar el rendimiento de un servidor.
+
+Para comprender nuestro servidor usaremos el modelo de redes basados
+en colas, pues estudiaremos cada recurso como únicamente accesible por
+un único usuario.
+
+Una red de cola es un conjunto de estaciones de servicio, que estan
+compuestas por un recurso y una cola de espera para los trabajos que
+intentan acceder a él.
+
+Lo más relevante en este modelo es tanto el procesamiento como la
+Entrada/Salida. Un proceso que entra en la CPU espera en la cola de la
+CPU hasta su turno, luego, si lo requiere avanza hasta la siguiente
+estación de servicio y luego sale, o sale directamente si solo
+necesita CPU.
+
+Variables temporales de un trabajo que se usan en una estación de
+servicio:
+
+* **Tiempo de espera en la cola (W)**
+
+* **Tiempo de servicio (S):** Tiempo que transcurre desde que se ocupa
+  el recurso hasta que se libera.
+  
+* **Tiempo de respuesta (R):** Suma de los dos tiempos anteriores.
+
+Las estaciones con más de un servidor son capaces de atender a más de
+un trabajo en paralelo. Aumentar el número de servidores disminuirá el
+tiempo de espera en cola.
+
+* **Tiempo de reflexión(Z):** Tiempo que tarda un usuario antes de
+  volver a enviar una petición al servidor.
+  
+**Redes de colas abiertas:** Los trabajos llegan a la red a través de
+una fuente externa que no controlamos, son procesados y salen a través
+de uno o más sumideros. El número de trabajos en el servidor puede
+variar con el tiempo. Se conoce la tasa de llegada de trabajos al
+servidor.
+
+**Redes de colas cerradas:** Presentan un número constante de trabajos
+que van recirculando por la red ($N_t$). Y se distinguen en batch o
+interactivas si carecen de interacción con usuarios o si la tienen.
+
+**Redes de colas mixtas:** Cuando el modelo no corresponde a ninguno
+de los dos anteriores.
+
+### Variables y leyes operacionales
+
+Por conveniencia, al hablar de todas estas variables, nos referiremos
+a los valores medios en lugar de a un valor concreto cuando esta
+información se omita.
+
+**Variables operacionales básicas:**
+
+* **T (global temporal):** Duración del período de medida sobre el que se extrae el
+  modelo.
+  
+Luego existen otras variables operacionales básicas de una estación de
+servicio determinada durante este tiempo T:
+
+* **$A_i$:** Número de trabajos solicitados a la estación i-ésima
+  (arrivals). 
+  
+* **$B_i$:** Tiempo total en el que la estación i-ésima ha estado
+  ocupado (busy).
+  
+* **$C_i$:** Número de trabajos completados por la estación i-ésima
+  (completions). 
+
+**Variables operacionales deducidas**:
+
+A partis de estas variables se pueden extraer muchas otras:
+
+* $\lambda _i$ Tasa media de llegada (trabajos/segundo, $A_i$/T).
+
+* $\tau _i$ Tiempo medio entre llegadas (segundos/trabajo 1/$\tau _i$,
+  menos utilizada).
+
+* $X_i$ Productividad media (trabajos/segundo, $C_i/T$).
+
+* $S_i$ Tiempo medio de servicio ($B_i/C_i$).
+
+* $W_i$ Tiempo medio de espera en cola. 
+
+* $R_i$ Tiempo medio de respuesta ($W_i + S_i$).
+
+* $U_i$ Porcentaje del tiempo que el dispositivo está ocupado.
+
+* $N_i$ Número medio de trabajos en la estación de servicio (cola más
+  recurso)
+  
+* $Q_i$ Número medio de trabajos en la cola de espera 
+
+* $U_i$ Número medio de trabajos siendo servidos por el dispositivo
+  ($B_i/T$)
+  
+**Variables globales del servidor:**
+
+En lugar de tener el subíndice i tienen el subíndice 0. Se usan sólo
+algunas variables de las anteriores, pues algunas no tienen sentido
+(por ejemplo el tiempo ocupado).
+
+**Básicas:** $A_0,\ C_0$
+**Deducidas:** lambda_0,\tau_0, X_0, R_0, N_0
+
