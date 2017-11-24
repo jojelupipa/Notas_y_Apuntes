@@ -467,3 +467,87 @@ limitar la altura y la anchura de la pantalla/ventana, pues más allá
 no se puede ver.
 
 
+<!-- 24/11/2017 -->
+
+## Conceptos práctica 4
+
+Para la entrega se pedirá, entre otras cosas:
+
+* *Cuando se agrande la ventana no debe haber deformación.*
+Hay que cambiar la relación entre el ancho y el largo de la pantalla.
+
+$$X_D = \frac{(X_Dmax-X_Dmin)}{X_Cmax-X_Cmin}(X-X_cmin)+X_Dmin$$
+
+Para la iluminación y texturas debemos obtener las normales tanto de
+caras como vértices (en la clase vertex existe una función para
+normalizar estos vectores normales).
+
+Para iluminar debemos de considerar tanto la fuente de luz como el
+observador que mira al modelo. Las dos últimas cosas las tenemos
+(modelo y cámara), por lo que nos falta la fuente de luz.
+
+Para lo que haremos en esta práctica nos hará falta el color de la luz
+(blanca, en nuestro caso), saber que será una fuente de luz radial
+(puntual) en lugar de focal. De esta luz sólo nos interesa su
+posición.
+
+Existe una función llamada glLight que permite modificar la posición
+de la fuente de luz.
+
+Si la posición de la luz se encuentra en el infinito, sus rayos serán
+paralelos entre sí.
+
+Cada luz hay que habilitarla/deshabilitarla con glEnable.
+
+La intensidad de la luz reflejada sobre un objeto tiene varias
+componentes, ambiental, difusa y especular.
+
+La componente difusa significa que cuando llega un rayo de luz el
+objeto refleja ese rayo en todas direcciones.
+
+La especular significa que si recibe un rayo refleja ese mismo rayo,
+es el caso, por ejemplo, de un espejo.
+
+La ambiental es la luz que devuelve el objeto, por sus propiedades, al
+ser iluminado por otra luz. Por ejemplo, un objeto rojo reflejaría una
+luz roja al ser iluminado.
+
+Los materiales indican cómo se comporta cada una de estas componentes
+cuando una luz se refleja sobre él.
+
+La función coseno nos permite saber la intensidad con la que se
+refleja la luz al evaluar el ángulo que se forma el rayo de luz
+incidente con la normal del objeto.
+
+La reflexión difusa es: El producto escalar del vector Luz con el
+vector normal.
+ 
+Para la reflexión especular depende de que coincida el ángulo del
+observador con el ángulo del rayo reflejado: $(R\cdot O)^n$.
+
+Para el cálculo de estas luces se multiplica el color de la luz
+((1,1,1) si es blanca) por el material, color del objeto (RGB, (1,0,0)
+si es rojo).
+
+La ambiental por su parte depende de una componente ambiental y de un
+color del material (R,G,B)
+
+De esto se encarga openGL, nosotros tendremos que encargarnos de la
+luz, los materiales y la normal.
+
+Consejo: Luz ambiental 10%, difusa 70% y especular 20%.
+
+¿Cómo pintar?
+
+Teniendo una cara y su normal disponemos de $GL_FLAT$ y de $GL_SMOOTH$
+para sombrear un objeto. Flat indica que para cada cara se realiza un
+único cálculo del color y se aplica.
+
+glShadeMode modifica esto
+
+Ahora cuando pintemos los triángulos tendremos que mandar la normal
+con glNormal antes de pintar los tres vértices.
+
+Si se calcula un valor para cada vértice y se interpola ese valor, a
+costa de hacer esos cálculos se puede obtener un degradado, para ello
+habría que usar glNormal antes de pintar cáda vértice.
