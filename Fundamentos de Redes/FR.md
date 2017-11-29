@@ -503,3 +503,29 @@ prematuros, o demasiado largo, pues generaría grandes esperas
 innecesarias.
 
 $$x_t = x_{t-1}\alpha + y_t(1-\alpha) ; \alpha \in [0,1)$$
+
+<!-- 29/11/2017 -->
+
+**Control de flujo:** 
+Procedimiento para evitar que el emisor sature al receptor.
+
+Es un esquema crediticio el receptor avisa al emisor de lo que puede
+aceptar.
+
+Se utiliza el campo ventana (WINDOW) en el segmento TCP para
+establecer la ventana ofertada.
+
+El receptor responde al emisor con el número de bytes que tiene libre
+en su ventana, si este le responde con 0 es que no puede recibir más
+paquetes. El emisor tiene que esperar a recibir un nuevo paquete con
+el mismo ack pero con un valor de window mayor que cero.
+
+**Control de congestión:**
+
+En el emisor se usa una ventana y un umbral, inicialmente VCongestion
+= MaximumSegmentSize, y Umbral es un valor arbitrario inicializado por
+el emisor y ambos son regulados cuando se produce algún timeout.
+
+Si VCongestion < Umbral, por cada ACK recibido (crece
+exponencialmente, por cada ack que se reciba, si llegan dos, de la
+ventana se liberan dos y se aumenta en dos más) 
