@@ -551,3 +551,32 @@ con glNormal antes de pintar los tres vértices.
 Si se calcula un valor para cada vértice y se interpola ese valor, a
 costa de hacer esos cálculos se puede obtener un degradado, para ello
 habría que usar glNormal antes de pintar cáda vértice.
+
+<!-- 1/12/2017 -->
+
+# Práctica 5. Interacción.
+
+Una de las primeras interacciones entre un programa y el usuario puede
+ser el teclado. Hasta ahora es lo que hemos estado usando, pero podría
+plantearse utilizar, por ejemplo, el ratón.
+
+El ratón podríamos usarlo para seleccionar un objeto, y esto lo
+podemos hacer de varias maneras. 
+
+Con un **raycast** tendríamos la ventana de nuestra aplicación, donde
+se verían nuestros objetos. Entonces se trazará una recta que irá
+desde el origen de la cámara y pase por el punto del plano delantero
+en el que se encuentre nuestro ratón, entonces, intersectará con los
+objetos que se encuentren en esa dirección. Cada objeto se encuentra
+"inscrito" en un "cubo", el cubo de volumen mínimo, si el raycast
+intersecta con este cubo entonces estudia las intersecciones que se
+pudieran producir con el objeto en cuestión. Este procedimiento es
+mucho menos costoso que estudiar las intersecciones de la recta con
+cada plano que existe. 
+
+En la **selección por color** se le asigna un color a cada objeto
+(codificado por su RGB), entonces, se accede al buffer donde se
+almacena lo que se ha pintado (frame buffer). Cuando se seleccione un
+pixel con el ratón, sólo tiene que ver qué objeto se codificó con ese
+color.
+
