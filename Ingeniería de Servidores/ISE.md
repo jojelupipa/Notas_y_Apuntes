@@ -667,5 +667,119 @@ algunas variables de las anteriores, pues algunas no tienen sentido
 (por ejemplo el tiempo ocupado).
 
 **Básicas:** $A_0,\ C_0$
-**Deducidas:** lambda_0,\tau_0, X_0, R_0, N_0
+**Deducidas:** $\lambda_0,\tau_0, X_0, R_0, N_0$
 
+<!-- 30/11/2017 -->
+
+**Razón de visita y demanda de servicio**
+
+La razón de visita nos informa de la proporción entre el número de
+trabajos completados por el servidor y el número de trabajos
+completados por una estación de servicio concreta.
+
+$$V_i = \frac{C_i}{C_o}$$
+
+La demanda de servicio, por su parte, es la cantidad de tiempo que,
+por término medio, el dispositivo i-ésimo  ha dedicado a cada trabajo
+que abandona el servidor.
+
+$$D_i = \frac{B_i}{C_o} = V_i \times S_i $$
+
+**Ejercicio:**
+Después de monitorizar el disco duro de un servidor web durante un
+periodo de 30 segundos, se sabe que ha estado en funcionamiento un
+total de 27 segundos. Asimismo, se han contabilizado durante ese
+periodo un total de 74 peticiones de lectura/escritura al disco duro y
+un total de 72 peticiones completadas. Se ha estimado que cada
+consulta atendida por el servidor web ha requerido una media de 4
+accesos de E/S al disco duro. Calcule: 
+
+a) ¿Cual es la tasa media de llegada al disco duro?
+
+T = 30s
+$B_{DD}$ = 27s (DD = Disco Duro)
+$A_{DD}$ = 74 peticiones
+$C_{DD}$ = 72 trabajos completados
+$V_{DD} = \frac{C_{DD}}{C_o}$ = 4 (razón de visita)
+
+
+$\lambda _{DD} = \frac{A_{DD}{T}} = \frac{74pet}{30s} = 2.47pet/s$
+
+b) ¿Cuál es la productividad media del disco duro?
+
+$X_{DD} = \frac{72}{30} = 2.4pet/s$
+
+c) Determínese la utilización del disco duro, su tiempo de servicio y
+su demanda de servicio.
+
+Utilización del disco duro $U_{DD} = \frac{27s}{30s} = 0.9$
+
+Tiempo de servicio: $S_{DD} = \frac{B_{DD}}{C_{DD}} = \frac{27s}{72} =
+0.375$
+
+Demanda de servicio: $D_{DD} = V_{DD} \cdot S_{DD} = 1.5s$
+
+d)¿Cuál es la productividad media del servidor web?
+
+$X_0 = \frac{C_0}{T} = \frac{18pet}{30s} = 0.6pet/s$
+
+<!-- Faltan leyes operacionales hasta Ley de la Utilización -->
+
+**Ley del flujo forzado:**
+
+La productividad de cada dispositivo siempre es V veces la del
+servidor (son proporcionales)
+
+$$V_i = \frac{C_i}{C_o} = \frac{X_i}{X_o}$$
+
+
+<!-- 7/12/2017 -->
+
+<!-- 14/12/2017-->
+
+## Técnicas de mejora
+
+**Sintonización o ajuste (tuning):** Optimizar el funcionamiento de
+las componentes del servidor que existen actualmente. Ejemplos de esto
+pueden ser el overclocking, optimizar la configuración de los
+dispositivos existentes o del mismo Sistema Operativo.
+
+**Actualización o ampliación (upgrading):** Reemplazar los
+dispositivos por otros más rápidos o añadir nuevos dispositivos
+extra. Los principales problemas de esta estrategia es su mayor coste
+y los problemas de compatibilidad con lo anterior.
+
+## Algoritmos de resolución de modelos de redes de colas
+
+Para resolver el modelo de redes de colas podemos proponer la
+siguiente metodología.
+
+Supondremos conocidos el número de estaciones de servicio (K).
+
+En cada estación conoceremos la razón de visita medio de cada estación
+($V_i$) y tiempo de servicio medio de cada estación ($S_i$).
+
+Además si la red es abierta conoceremos la tasa de llegada al servidor
+($\lambda _0$), y si es cerrada conoceremos el número total de
+trabajos en la red ($N_T$) y si es interactiva, el tiempo medio de
+reflexión de los usuarios Z.
+
+**Hipótesis del peor caso posible:**
+
+Dada una red de colas abierta supondremos que un trabajo que llega
+tiene que esperar a que se procesen los $N_i$ trabajos que de media hay en
+la estación, uno comenzando a ser servido y el resto esperando:
+
+$$ W_i = N_i \cdot S_i$$
+
+Luego, para ser procesado tendrá que esperar su propio tiempo de
+servicio. Por tanto, el tiempo medio de respuesta vendrá dado por este
+peor escenario posible:
+
+$$R_i = W_i + S_i$$
+
+De esto podemos deducir (aplicando que $N_i = \lambda_i \cdot R_I$):
+
+$$R_i = \lambda _i \cdot R_i \cdot S_i + S_i \Rightarrow R_i =
+\frac{S_i}{1-\lambda _i \cdot S_i} = \frac{S_i}{1-U_i} =
+\frac{S_i}{1-\lambda _0 \cdot D_i}$$
