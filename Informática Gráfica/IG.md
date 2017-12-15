@@ -580,3 +580,22 @@ almacena lo que se ha pintado (frame buffer). Cuando se seleccione un
 pixel con el ratón, sólo tiene que ver qué objeto se codificó con ese
 color.
 
+
+<!-- 15/12/2017 -->
+
+# **Modelado avanzado:** 
+Hasta el momento hemos estado usando el modo inmediato de OpenGL, este
+modo consiste en el uso de una llamada para cada vértice a
+pintar. Esto resulta muy costoso para modelos muy grandes, por lo que
+se propuso en lugar de una llamada por vértices, realizar una llamada
+por bloque, y esto se hacía con *DrawArrays*. 
+
+En el programa se indicaría que tipo de array se espera, indicando el
+tipo de datos que se espera y el puntero al comienzo de los datos, y
+por último habría que indicar qué modo de dibujado se va a usar.
+DrawArrays no necesita el vector de triángulos, en su lugar se
+introducen los vértices de cada triángulo de 3 en 3, lo que triplica
+el tamaño del vector de vértices. 
+
+En contraposición a esto está *DrawElements*, que mantiene el uso del
+vector de triángulos.
