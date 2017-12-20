@@ -529,3 +529,51 @@ el emisor y ambos son regulados cuando se produce algún timeout.
 Si VCongestion < Umbral, por cada ACK recibido (crece
 exponencialmente, por cada ack que se reciba, si llegan dos, de la
 ventana se liberan dos y se aumenta en dos más) 
+
+<!--13/12/2017  FALTA LO DE ESTE DÍA-->
+
+# Tema 4. Redes Conmutadas e Internet
+
+<!-- 20/12/2018 -->
+
+## Conmutación
+
+La conmutación explica cómo se realiza el transporte de la
+comunicación en los nodos intermedios. 
+
+Cuando iniciamos una comunicación en una llamada telefónica tendremos
+un ancho de banda, un recurso, reservado para nosotros, sin que pueda
+ser utilizado por nadie más. (Conmutación de circuitos)
+
+Este es el concepto de recurso dedicado.
+
+Al hacer la conmutación de paquetes, como un ordenador con múltiples
+procesos que se conectan a internet, se permite la división en
+paquetes de manera que los distintos procesos pueden hacer uso de
+internet de manera concurrente.
+
+Este, por su parte, es el concepto de recurso compartido. Su
+desventaja es que produce un mayor delay.
+
+## Asociación con Capa de enlace: El protocolo ARP.
+
+ARP permite traducir direcciones que tienen sentido en internet a
+direcciones que tienen sentido sobre la tecnología que estemos usando.
+
+**Direcciones MAC:** Son direcciones usadas en redes wifi y ethernet,
+que, tras la redirección IP se envía a la MAC del siguiente nodo. Su
+formato consta de seis pares de cifras hexadecimales. Son únicas,
+asignadas en lotes de $2^{24}$ por IEEE.
+
+Su dirección de broadcast es la FF-FF-FF-FF-FF-FF
+
+## El protocolo ICMP
+
+Es un protocolo de control, se usa para situaciones de error, tales
+como que una dirección esté caída. Se envía hacia el origen, es decir,
+si el paquete recibe algún error en su transmisión se encarga de que
+sea devuelto un mensaje de error al transmisor original.
+
+
+
+
