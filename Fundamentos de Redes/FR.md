@@ -96,24 +96,47 @@ inmediatamente superior hasta llegar a la capa original.
 
 **Retardos en la comunicación:**
 
-<!--Revisar estos conceptos-->
-El tiempo de transmisión es lo que tardan los bits en emitirse.
+El **tiempo de transmisión** es lo que tardan los bits del paquete en
+emitirse. Depende de la velocidad de transmisión y el número de bits a
+enviar.
+
 $$T_t = \frac{P(b)}{V_t (bps)}$$
 
-El tiempo de propagación es el tiempo que el primer bit tarda hasta
-llegar a su destino. Se mide en metros por segundo.
+El **tiempo de propagación** es el tiempo que el primer bit tarda hasta
+llegar a su destino. La velocidad de propagación depende del medio
+físico del enlace y se mide en metros por segundo. (Distancia a
+recorrer entre velocidad de propagación
+
 $$T_p = \frac{D(m)}{V_p(m/s)}$$
 
 La fibra óptica aumenta el ancho de banda para poder transmitir más
 bits a la vez, y por tanto aumenta la velocidad de las transmisiones.
 
-<!--Falta completar Tipos de servicios-->
+Además de estos tiempos, cuando un nodo recibe un paquete y lo procesa
+para reenviarlo se producen **retardos de procesamiento**, cuando el
+nodo recibe dicho paquete y procesa su información, y **retardos de
+cola**, cuando el mensaje espera en una cola a que todos los mensajes
+que llegaron antes que él sean enviados.
+
 
 **Servicios:**
-- Orientado a conexión (OC).
-- No orientado a conexion (NOC).
-- Confirmado (fiable).
-- No confirmado (no fiable).
+- **Orientado a conexión (OC)**. Tales como TCP, su objetivo es evitar
+  las pérdidas. Se abre una conexión, haciendo que cliente y servidor
+  intercambien información de control antes de que se produzca el
+  intercambio a nivel de aplicación. Se usa en aplicaciones donde se
+  quieran evitar las pérdidas de información.
+  
+- **No orientado a conexion (NOC)**. Tales como UDP,  proporciona unos
+  servicios básicos, sin establecer una conexión previa, por lo que no
+  garantiza la correcta entrega del mensaje. Se usa en aplicaciones de
+  tiempo real.
+
+- **Confirmado (fiable)**. Pueden garantizar la entrega sin errores y
+  en el orden correcto.
+  
+- **No confirmado (no fiable)**. No garantizan la entrega correcta del
+  mensaje.
+  
 
 ## Internet: Arquitectura y Direccionamiento
 
@@ -122,11 +145,11 @@ internet:
 
 * Intranets: Wifi, ethernet
 
-* Redes de acceso del ISP (internet service provider): Cable
-  telefónico (xDLS,ISDN), cable (coax), HFC(Hybrid fiber coax),
-  FTTH(fiber-to-the-home)
+* Redes de acceso del ISP (Internet Service Provider): Cable
+  telefónico (xDLS,ISDN), cable (coax), HFC(Hybrid Fiber Coax),
+  FTTH(Fiber-To-The-Home)
 
-* Redes troncales ATM, SDH, SONET, etc) de grandes operadores de
+* Redes troncales (ATM, SDH, SONET, etc) de grandes operadores de
   telecomunicaciones.
   
   
@@ -134,13 +157,22 @@ internet:
 
 * Tier 1: Los grandes proovedores hacen acuerdos de peering para no
   cobrarse los servicios mutuamente, sino que solo gestionan el
-  tráfico entre ellos. Sólo tienen acuerdos de peering.
+  tráfico entre ellos. Sólo tienen acuerdos de peering. Se conocen
+  como redes troncales y tienen cobertura internacional.
 
 * Tier 2: Tienen tanto acuerdos de peering como pagos a otros ISP más
-  grandes que puedan gestionar su tráfico.
+  grandes que puedan gestionar su tráfico. Tienen cobertura
+  regional/nacional.
 
 * Tier 3: Pagan por los acuerdos de tránsito. No pueden permitirse
- negociar para hacer peering.
+ negociar para hacer peering. Necesitan conectarse a internet a través
+ de un ISP de tier 2.
+ 
+ Para conocer cómo se dirigen las conexiones y cómo se identifican los
+ destinatarios se usan diversos elementos. La dirección IP, en la capa
+ de red, identifica a los hosts. Para los humanos es más sencillo usar
+ los nombres de dominio, los cuales traducen las direcciones del
+ lenguaje humano a su correspondiente dirección IP.
  
  <!-- Falta todo lo del día 27/09/2017
 	 -Diseños de protocolos
