@@ -180,18 +180,94 @@ internet:
 	 (Hasta la quinta página de las diapositivas)
  -->
 
+\newpage
+
 # Tema 2. Servicios y Protocolos de Aplicación en Internet
+
+## Introducción a las aplicaciones web
+
+Todas las aplicaciones finales que usamos se basan en otros
+protocolos. Los protocolos que use la aplicación estarán basados en
+otros de transporte como UDP y TCP y estos a su vez en protocolos de
+internet como IP, que son los que finalmente tienen acceso a la red.
+
+Generalmente se comportan de acuerdo a una estructura
+cliente-servidor. En este existe un host que siempre está activo, el
+servidor, con IP permanente y pública. Y este presta un servicio a las
+solicitudos de muchos otros hosts, que son sus clientes, con IP que
+puede ser dinámica y privada y no se comunican entre sí. Estos, por su
+parte, pueden estar activos de manera permanente o intermitente.
+
+Los servidores se agrupan en granjas o clústeres, también denominados
+centros de datos, que permiten dar soporte a todas las peticiones de
+sus clientes sin ser desbordados.
+
+### **Sockets**
+
+La comunicación entre diversos hosts se realiza mediante el uso de
+sockets por parte de los procesos que se encuentran tanto en servidor
+como en el cliente.
+
+El proceso cliente es el que inicia la comunicación, mientras que el
+proceso servidor es el que espera a ser contactado. Es por esto por lo
+que necesita tener una IP permanente y pública. Además, para recibir
+mensajes, un proceso debe tener un identificador, compuesto por una IP
+y un puerto.
+
+**Retardo en cola:**
+
+Para estimar los retardos en cola se usa teoría de colas. El retardo
+en cola es:
+
+$$ R = \frac{\lambda (T_s)^2}{1-\lambda T_s} $$
+
+Donde $T_s$ es el tiempo de servicio y $\lambda$ es el ratio de
+llegada de solicitudes.
+
+Esta expresión se puede usar para calcular el retardo en cola en un
+router.
+
+### Protocolo de aplicación
+
+Una pregunta que nos podemos hacer es qué define a un protocolo. Y
+estos están definidos por el tipo de servicio que sea, el tipo de
+mensaje que emita, su sintaxis, semántica y sus reglas.
+
+**Tipos:**
+
+* Protocolos de dominio público: Definidos en RFCs (Request For
+  Comments). Son tales como HTTP, SMTP, FTP, IP...
   
+* Protocolos propietarios. Tales como skype.
+
+* In-band vs out-of-band: Cuando la gestión se realiza por la misma
+  vía que la comunicación frente a cuando se usa una vía paralela.
+  
+* Stateful vs stateless: Cuando la aplicación guarda información sobre
+  todo lo que ocurrió desde el inicio de la misma frente a cuando no
+  la guarda.
+  
+* Persistentes vs no persistentes: Cuando el protocolo hace uso de
+  conexiones persistentes frente a cuando no.
+  
+Normalmente los protocolos son flexibles, tendiendo a tener una
+cabecera fija y una serie de "trozos" que pueden ser opcionales u
+obligatorios. Estos trozos, a su vez, pueden incluir alguna cabecera
+específica más una serie de datos en forma de parámetros que pueden
+ser fijos o de longitud variable, con formato TLV (Un campo para el
+tipo de parámetro, otro para la longitud y otro para el valor del
+parámetro. Es destacable que *todos los parámetros comienzan en
+múltiplos de 4 bytes*, pudiendo requerir relleno.
 
 <!-- 4/09/2017-->
 Una aplicación debe de tener unos requisitos, entre estos se encuentran:
 
 * **Pérdidas de datos:** Algunas aplicaciones pueden tolerar las
   pérdidas de datos, tales como streamings de audio/vídeo, pero otras
-  deben de asegurar la fiabilidad de la trasferencia (transferencia de
+  deben de asegurar la fiabilidad de la transferencia (transferencia de
   archivos).
   
-* **Requisitos temporales:** También pueden necesitar un pequeño
+* **Requisitos temporales:** También pueden necesitar el mínimo 
   retraso (delay) para ser efectivos. Un streaming también tiene el
   requisito de que este retraso no sea excesivo, o en los videojuegos
   es necesaria esa sincronización para evitar el lag.
@@ -217,7 +293,7 @@ En la capa de transporte existen diversos protocolos:
   comunicación. A su vez carece de todas las propiedades que acabamos
   de destacar sobre TCP.
   
-Estos al ser usuarios del protocoolo IP (Capa de red) no garantizan el
+Estos al ser usuarios del protocolo IP (Capa de red) no garantizan el
 retardo acotado, las fluctuaciones acotadas, el mínimo throughput y la
 seguridad requerida.
 
@@ -236,8 +312,12 @@ Donde Nivel1 es el dominio genérico.
 
 La ICANN se encarga de delegar los nombres y números asignados.
 
-<!--Falta completar lo último de esta clase-->
-
+Cuando un host quiere solicitar una determinada página a un servidor
+web introduce el nombre de dicho servidor web. El navegador extrae el
+nombre del host a partir del URL y lo pasa a la aplicación DNS. El
+cliente DNS envía una consulta con dicho nombre al servidor DNS, tras
+procesarlo, el servidor le responde con una dirección IP
+correspondiente, mediante el cual ya puede iniciar la conexión.
 
 <!-- 11/10/2017 -->
 
@@ -251,11 +331,41 @@ De esta manera nos conectaríamos con los servidores “.”, los de
 dominio (Top-Level Domain, TDL), servidores Locales y servidores
 Autorizados y Zona.
 
+Un host solicitaría la dirección de una URL (www.una.direccion.com) a su
+servidor local. Este envía la petición a un servidor raíz, el cual
+toma el sufijo (.com) y le responde al DNS local una lista de
+direcciones responsables de dicho dominio (los responsables del
+sufijo .com). Estos responsables son servidores TLD (top level
+domain) y a continuación se les envía una petición a estos. El
+servidor TLD examina el sufijo (direccion.com) y responde con la
+dirección del servidor DNS autorizado que puede dar la dirección del
+URL inicial. Después el servidor local consulta a dicho servidor DNS
+autorizado y este le responde con la dirección IP de la URL inicial
+(www.una.direccion.com).
+
+**Gestión de la base de datos DNS:**
+
+Como hemos comprobado la base de datos está distribuida. Esto implica
+que cada zona debe tener al menos un servidor de autoridad, y en cada
+zona habrá servidores primarios y secundarios, que bien tendran la
+copia master de la base de datos o bien la obtendrán a partir de los
+primarios. Existen sólo 13 servidores raíz. Existe un servicio de
+caché que permite agilizar las consultas.
+
+Los servidores pueden dar una **respuesta con autoridad**, si tiene
+autoridad sobre la zona en la que se encuentra el nombre solicitado y
+devuelve la dirección IP. Una **respuesta sin autoridad**, cuando no
+tienen autoridad pero tienen la respuesta en caché. O bien puede no
+conocer la respuesta, lo que implicaría una consulta a un servidor superior.
 
 ## La navegación Web
 
-Una página web es un fichero (HTML) formado por objetos dicheros HTML,
-imágenes, applets y demás tipos de archivo. Cada objeto se direcciona
+El protocolo de transferencia de hipertexto, **HTTP**, es el protocolo
+de la capa de aplicación de la web y se encuentra en el corazón de la
+Web. 
+
+Una página web es un fichero (HTML) formado por objetos ficheros HTML,
+imágenes, applets y demás tipos de archivos. Cada objeto se direcciona
 con una URL. Que tiene su **puerto bien definido**, el 80.
 
 El protocolo HTTP sigue un modelo cliente-servidor. El cliente es el
