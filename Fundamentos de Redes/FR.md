@@ -174,11 +174,7 @@ internet:
  los nombres de dominio, los cuales traducen las direcciones del
  lenguaje humano a su correspondiente dirección IP.
  
- <!-- Falta todo lo del día 27/09/2017
-	 -Diseños de protocolos
-	 
-	 (Hasta la quinta página de las diapositivas)
- -->
+ <!-- 27/09/2017 -->
 
 \newpage
 
@@ -362,11 +358,13 @@ conocer la respuesta, lo que implicaría una consulta a un servidor superior.
 
 El protocolo de transferencia de hipertexto, **HTTP**, es el protocolo
 de la capa de aplicación de la web y se encuentra en el corazón de la
-Web. 
+Web. Este se implementa en dos programas, un cliente y un servidor.
 
-Una página web es un fichero (HTML) formado por objetos ficheros HTML,
-imágenes, applets y demás tipos de archivos. Cada objeto se direcciona
-con una URL. Que tiene su **puerto bien definido**, el 80.
+Una página web es un fichero (HTML) formado por objetos, que pueden
+ser ficheros HTML, imágenes, applets y demás tipos de archivos. Cada
+objeto se direcciona con una URL. La mayoría de las páginas web tienen
+un archivo base  HTML donde se referencian los objetos que están
+contenidos en esa web. Tiene su **puerto bien definido**, el 80. 
 
 El protocolo HTTP sigue un modelo cliente-servidor. El cliente es el
 que pide, recibe y muestra objetos web mediante el browser. El
@@ -379,7 +377,10 @@ peticiones.
 conexión TCP.
 
 **HTTP es “stateless” $\rightarrow$ Cookies:** El servidor no mantiene
-la informacióń sobre las peticiones de los clientes. 
+la informacióń sobre las peticiones de los clientes. Esto puede
+implicar, por ejemplo, que cuando recibe dos peticiones idénticas del
+mismo cliente devuelve el objeto solicitado en lugar de devolver
+ningún tipo de error o mensaje informativo.
 
 La conexión puede ser persistente o no persistente. En el primer caso
 se pueden enviar múltiples objetos sobre una única conexión TCP entre
@@ -389,10 +390,19 @@ para cada objeto a enviar.
 El persistente tiene un tiempo de transmisión total menor que el no
 persistente. Pero el no persistente permite gestionar mejor los
 recursos del servidor, pues no tiene que mantener el socket abierto
-durante toda la conexión.
+durante toda la conexión, a cambio, al tener que establecer una
+conexión por objeto reduce su velocidad.
 
 Hay dos tipos de mensajes HTTP: request y reponse. La petición de un
-elemento y su concesión.
+elemento y su concesión. Cada uno de ellos tiene un formato
+específico, donde se indica la información concreta que se desea
+solicitar, o, en caso de ser desarrolladores de la página, mensajes de
+gestión. (GET,POST,HEAD,PUT,DELETE)
+Las respuestas se asemejan a las peticiones en cuanto a la
+indicación de un estado y cabecera, pero adicionalmente poseen el
+cuerpo de la entidad, donde se encuentra el objeto solicitado. La
+línea de estado indica un código de respuesta (200 OK, 301 moved
+permanently, 400 bad request, 505 HTTP version not supported).
 
 
 **Caché:** Cuando se solicitan numerosas veces algo a un servidor es
@@ -400,7 +410,8 @@ conveniente configurar un proxy intermedio que almacene dicha
 solicitud. De ese modo quien solicite ese mismo servicio no
 involucrará al servidor original sino al proxy, este sólo le envía una
 petición al servidor original para saber si es necesario actualizar la
-caché o no.
+caché o no. Si no dispone de esta solicitud tendrá que inevitablemente
+solicitar al servidor original.
 
 ## Correo Electrónico
 
@@ -412,10 +423,18 @@ siguiente:
 El usuario de origen utiliza su user agent para mandar el correo a su
 servidor de correo, se envía mediante SMTP o HTTP. Una vez hecho esto,
 el servidor del que envía el mensaje crea una conexión TCP con el
-servidor de correo del usuario destinatario y lo envía. El servidor de
-destino almacena el mensaje en la bandeja de entrada del usuario
-destino. El destinatario usará su agente de usuario arbitrariamente
-para leer el mensaje utilizando POP3, IMAP o HTTP.
+servidor de correo del usuario destinatario y lo envía, este envío sí
+que se produce con SMTP. El servidor de destino almacena el mensaje en
+la bandeja de entrada del usuario destino. El destinatario usará su
+agente de usuario arbitrariamente para leer el mensaje utilizando
+POP3 (Post Office Protocol), IMAP (Internet Mail Access Protocol) o
+HTTP. 
+
+(La diferencia entre POP3 e IMAP es que POP3 no puede ser usado por
+usuarios "nómadas" que quieran acceder desde distintos hosts a su
+correo, pues una vez recibidos los archivos, estos sólo permanecen en
+el receptor. IMAP permite mantener una carpeta bandeja de entrada en
+un servidor IMAP, donde puede gestionar ahí su correo.
 
 ## Protocolos Seguros
 
@@ -511,6 +530,10 @@ acotado. Hacen uso además de multicast (Ejemplo YouTube en las diapositivas).
 
 * **DHCP:** Nos permite configurar dinámicamente direcciones IP
 
+* **DynDNS, No-IP:** Servicios en la red privda con IP pública
+  variable, configuración de acceso necesaria
+  
+* **UPnP:** "Pervasive adhoc com". Comunicación dispositivo <-> NAT
 
 # Tema 3.
 <!-- Falta el comienzo del tema 3 -->
