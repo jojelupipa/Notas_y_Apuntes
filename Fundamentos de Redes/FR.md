@@ -535,14 +535,81 @@ acotado. Hacen uso además de multicast (Ejemplo YouTube en las diapositivas).
   
 * **UPnP:** "Pervasive adhoc com". Comunicación dispositivo <-> NAT
 
-# Tema 3.
-<!-- Falta el comienzo del tema 3 -->
+# Tema 3. Capa de Transporte en Internet
+
+Como sabemos un protocolo de la capa de transporte proporciona una
+abstracción de la comunicación de manera que podemos operar con dos
+hosts distantes como si estuvieran conectados directamente.
+
+Estos protocolos están implementados en los hosts terminales, pero no
+en los routers de la red. La capa de transporte transforma el mensaje
+en paquetes de capa de transporte conocidos como **segmentos**. Esto
+por lo general se hace dividiendo el mensaje original en fragmentos
+más pequeños y añadiendo una cabecera a cada uno de ellos. Tras esto
+la capa de transporte pasa a la capa de red, que gestiona con paquetes
+de capa de red el envío (en un datagrama).
+
+En internet hay dos protocolos que ofrecen distintos tipos de
+servicios para la capa de transporte, **TCP y UDP**.
+
+**Multiplexación y demultiplexación:**
+
+Un concepto importante para entender estos protocolos es saber cómo se
+comunican las aplicaciones, los procesos, con la capa de transporte,
+pues estos no se comunican directamente, sino que hacen uso de
+**sockets** intermediarios. A la hora de enviar un mensaje un proceso
+pasa a los sockets la información, la capa de transporte coge la
+información de estos sockets para crear los segmentos y pasarlos a la
+capa de red. Esta es la **multiplexación**. El procedimiento de
+recepción, donde la capa de transporte del receptor obtiene la
+información de la capa de red y la entrega a los socjets
+correspondientes es la **demultiplexación**.
+
+Cada uno de estos protocolos usa distintos tipos de sockets, con
+distinto funcionamiento. A continuación se explicarán estos
+protocolos.
+
+
+## Protocolo: User Datagram Protocol (UDP)
+
+Es un servicio de entrega de mejor esfuerzo (best effort), pues no
+garantiza la correcta entrega de todos los segmentos, pero hará todo
+lo que pueda para ello. 
+
+No es un servicio orientado a conexión, lo que implica que no es
+fiable y que ni hay garantías de entrega ordenada ni control de
+congestión, pues su principal desempeño es entregar la información tan
+rápida como se pueda.
+
+Entre sus ventajas destacan el control a nivel de aplicación sobre los
+datos que se envían y cuándo se envían, pues en cuanto lo indica la
+aplicación, UDP los empaqueta y los envía inmediatamente, sin
+mecanismos de control de flujo. Además, al no establecer ningún tipo
+de conexión evita retardos por ese motivo. Todo esto tiene
+adicionalmente una menor sobrecarga en la cabecera de los paquetes.
+
+Estos motivos hacen de UDP un protocolo ideal para aplicaciones
+tolerantes a fallos y sensibles a retardos, como las aplicaciones
+multimedia o, incluso, DNS.
+
+Las tareas de multiplexación y demultiplexación se realizan asignando
+un puerto disponible al socket del emisor, indicando el puerto de
+destino (y la dirección IP), entonces se realiza el mejor esfuerzo
+para entregar el datagrama. Cuando llega el paquete este es examinado
+en el destino y se entrega al socket apropiado según el número de
+puerto asociado. El socket UDP consta únicamente de puerto y dirección
+IP de destino.
 
 <!-- 15/11/2017 -->
-## Protocolo Transmission Control Protocol (TCP)
+## Protocolo: Transmission Control Protocol (TCP)
 
 Es un servicio orientado a conexión, con una entrega ordenada
-garantizada. Es además full-duplex-
+garantizada. Es además full-duplex. TCP garantiza una entrega fiable
+sobre una capa de red no fiable (IP).
+
+La multiplexación y demultiplexación varían frente a UDP, aquí los
+sockets están identificados por cuatro elementos: Puerto e IP de
+destino y puerto e IP de origen.
 
 Tiene un sistema de control de flujo de detección y recuperación de
 errores. Esto se implementa mediante temporizadores que esperan la
