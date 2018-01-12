@@ -304,12 +304,12 @@ tienen una lista de características consultables llamada *Datasheet*.
   conductor del calor que el propio aire. Incorporan su propia memoria
   caché, más rápida y pequeña (Static RAM, SRAM).
   
-  Dado que la CPU necesita un voltaje mucho inferior al resto de la
+  Dado que la CPU necesita un voltaje muy inferior al resto de la
   placa base existen reguladores de voltaje que permiten bajar la
   tensión a los 0'8V~1'1V para que puedan funcionar correctamente.
   
   Históricamente se ha evolucionado exponencialmente en términos de
-  número de transistores, la frecuencia, la cantidad de Vatios... pero
+  número de transistores, la frecuencia, la cantidad de Watios... pero
   la capacidad de procesamiento monohebra se quedó atrás en el momento
   en el que se llegó a la *“Thermal Wall”*, no se podía generar toda
   la potencia que se quisiese sin generar un calor de manera que no
@@ -348,24 +348,39 @@ tienen una lista de características consultables llamada *Datasheet*.
   **PCI:** Peripherial Component Interconnect. Son half-duplex. Sus
   frecuencias son muy bajas, para ciclos relativamente lentos.
 
-  **AGP:** Accelerated Graphics Port
+  **AGP:** Accelerated Graphics Port. Proporciona conexión directa
+  entre el adaptador de gráficos y la memoria.
   
   Con el tiempo todos estos protocolos han sido superados por
   PCI-Express
   
   **PCIe:** No es un bus, es una conexión punto a punto. Full-duplex,
-  esto lo consigue ya que cada LANE estáa compuesta por 4 cables. El
+  esto lo consigue ya que cada LANE está compuesta por 4 cables. El
   reloj está embebido en los datos. Es hot plug. Su codificación ha
   avanzado tanto que por cada 130b que envía 128b son de datos y solo
   tiene dos extra, lo cual disminuye la sobrecarga frente a los 8b/10b
   de versiones anterior
-
+  
+  **Ethernet:** Para redes de Área Local, con conexiones de cable
+  trenzado o fibra óptica.
+  
+  **USB:** Universal Serial Bus (Intel)
+  
+  **FireWire:** Puerto de serie de altas prestaciones (Apple)
+  
+  **Thunderbolt:** Combina PCIe y DisplayPOrt para obtener
+  almacenamiento externo de altas prestaciones.
 
 
 * **Almacenamiento Permanente:** Sirven para almacenar información de
   manera “permanente”, a diferencia de la RAM, no es volátil. Existen
-  distintos tipos (magnéticos, ópticos, SSD...) y distintos protocolos
-  (ATA, SATA, SATAe, SCSI, USB...)
+  distintos tipos (magnéticos, ópticos, SSD...) y distintos
+  protocolos/interfaces: ATA (Advanced Technology Attatchment),
+  PATA(Parallel ATA), SATA (Serial ATA), SATAe, SCSI (Small Computer
+  System Interface) Ultra-SCSI, SAS (Serial Attached SCSI), USB... 
+  
+  Entre otras interfaces se encuentra el canal de fibra o la infiniband.
+  
   
   
 * **Chipset:** Es el conjunto de circuitos integrados que se encargan
@@ -382,6 +397,21 @@ arrancar el SO.
 Cada placa suele contentener un conjunto de parámetros definidos por
 el usuario que se almacenan mediante una memoria RAM-CMOS alimentada
 por una pila (la misma pila que alimenta el reloj en tiempo real).
+
+* **Fuente de alimentación:** Su misión es obtener tensiones continuas
+  que necesita un computador. (Entrada AC 200V-50hz / Salidas DC 5,12
+  y 3,3V. Potencia de 250W a 1000W)
+  
+### Centros de Procesamiento de Datos
+
+Son centros donde se concentran los recursos del procesamiento de
+datos de una organización.
+
+Se les atribuye un diseño determinado, con la apropiada
+infraestructura, disposición y cableado. Con un sistema de alimentación que lo
+proteja de fallos en el suministro eléctrico. Además cuentan con un
+sistema de ventilación capaz de disipar el calor para mantener las
+condiciones óptimas. 
 
 # Tema 3
 
