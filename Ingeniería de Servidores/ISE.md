@@ -280,6 +280,8 @@ flotante.
    $$S = \frac{0.35\cdot T_m + 0.65\cdot T_m\cdot 15}{T_m}=10.1$$
    $$F = 0.965$$
    
+\newpage
+
 <!-- 28/09/2017 -->
 
 # Tema 2
@@ -413,12 +415,15 @@ proteja de fallos en el suministro eléctrico. Además cuentan con un
 sistema de ventilación capaz de disipar el calor para mantener las
 condiciones óptimas. 
 
+\newpage
+
 # Tema 3
 
 ## Concepto de Monitor de Actividad
+
 **Definiciones:**
 
-* **Carga:** Conjunto de tareas que ah de realizar un sistema.
+* **Carga:** Conjunto de tareas que ha de realizar un sistema.
 
 * **Actividad de un sistema:** Conjunto de operaciones que se realizan
   en el sistema como consecuencia de la carga que tiene.
@@ -450,6 +455,12 @@ Una medida, a su vez, viene determinada por su exactitud, precisión,
 resolución del monitor/sensor, período de muestreo, tasa máxima de
 entrada, anchura de entrada y sobrecarga.
 
+La sobrecarga en un monitor se puede estudiar dados los recursos del
+sistema el monitor consume.
+
+$$ Sobrecarga_{recurso} =
+\frac{UsoRecurso_{monitor}}{CapacidadRecurso} $$
+
 <!-- 26/ 10/2017 -->
 ## Monitorización a nivel de sistema
 
@@ -457,7 +468,12 @@ Existen diversas utilidades y registros que nos permiten obtener
 información acerca de nuestro ordenador.
 
 Directorio **/proc**: Es una carpeta en RAM utilizada por el núcleo de
-Unix que nos permite obtener información sobre los datos del kernel.
+Unix que nos permite obtener información sobre los datos del
+kernel. Permite el acceso a indormación global del SO, a la de cada
+uno de los procesos del sistema y a algunos parámetros del kérnel.
+
+La mayoría de monitores de Unix utilizan este directorio como fuente
+de información.
 
 **uptime:** Indica el tiempo que lleva el sistema en marcha y la
 “carga media” que soporta. 
@@ -469,7 +485,7 @@ procesos del sistema.
 **top:** Cada T segundos muestra carga media, procesos, consumo de
 memoria... Normalmente se ejecuta en modo interactivo.
 
-**vmstat:** Paginación, swappong, interrupciones, cpu...
+**vmstat:** Paginación, swapping, interrupciones, cpu...
 
 **Monitor sar:** Muy utilizado para la detección de cuellos de botella
 en sistemas Unix. Almacena tanto información actual como histórica
@@ -488,7 +504,21 @@ permiten obtener información sobre un programa, en qué parte del
 código pasa la mayor parte del tiempo, cuantas veces se ejecuta cada
 línea...
 
-**time** *(/usr/bin/time)*: Recibe como argumento un programa, y lo analiza
+**time:** *(/usr/bin/time)* Recibe como argumento un programa, lo
+analiza y devuelve algunas estadísticas de uso, como el tiempo que se
+ejecutó en un determinado modo o los cambios de contexto requeridos.
+
+**gprof:** Da información sobre el tiempo de ejecución y el número de
+veces que se ejecuta cada función de un programa. Requiere de los
+parámetros -pg a la hora de compilarlos en C.
+
+**gcov:** Estudia el número de veces que se ejecuta cada línea del
+código del programa. También requiere de parámetros específicos
+(-fprofile-arcs y -ftest-coverage.
+
+Además existen otros profilers como Valgrind (binarios ya compilados),
+V-Tune o CodeXL (usan contadores hardware).
+
 
 <!-- 02/11/2017 -->
 
