@@ -377,7 +377,7 @@ peticiones.
 conexión TCP.
 
 **HTTP es “stateless” $\rightarrow$ Cookies:** El servidor no mantiene
-la informacióń sobre las peticiones de los clientes. Esto puede
+la información sobre las peticiones de los clientes. Esto puede
 implicar, por ejemplo, que cuando recibe dos peticiones idénticas del
 mismo cliente devuelve el objeto solicitado en lugar de devolver
 ningún tipo de error o mensaje informativo.
@@ -562,7 +562,7 @@ pasa a los sockets la información, la capa de transporte coge la
 información de estos sockets para crear los segmentos y pasarlos a la
 capa de red. Esta es la **multiplexación**. El procedimiento de
 recepción, donde la capa de transporte del receptor obtiene la
-información de la capa de red y la entrega a los socjets
+información de la capa de red y la entrega a los sockets
 correspondientes es la **demultiplexación**.
 
 Cada uno de estos protocolos usa distintos tipos de sockets, con
@@ -630,7 +630,7 @@ congestión y flujo.
 La información a enviar por TCP se divide en segmentos TCP. 
 Cada uno de esos segmentos contiene **información del puerto origen y
 destino**. Además contiene información relativa a sí misma y a la
-posición que ocupa esta información respecto al total,**número de
+posición que ocupa esta información respecto al total, **número de
 secuencia y número de acuse (ACK)**, el primero es el número
 del primer byte del segmento dentro del flujo de bytes que se
 inicializa a un valor aleatorio elegido por los hosts, mientras que
@@ -694,7 +694,7 @@ reconocimiento para que ambos queden con sus recursos liberados.
 **Otros detalles:**
 Los campos del control de conexión tienen 32 bits, osea $2^{32}$ valores.
 
-La inicialización se inicia por el ISN, que es elegido por el
+La inicialización se inicia por el ISN (Initial Sequence Number), que es elegido por el sistema. 
 Los campos del control de conexión tienen 32 bits, osea $2^{32}$ valores. 
 El sistema lo elige, y el estándar sugiere utilizar un contador entero
 incrementado en uno por cada 4 microsegundos. Esto protege de
@@ -715,7 +715,7 @@ TCP no se agoten?
 b) Considerando una velocidad de transmisión de 155 Mbps y un total de
 66 bytes para las cabeceras de las capas de transporte, red y enlace
 de datos, e ignorando las limitaciones debidas al control de flujo y
-congestión, calcule el tiempo qeu se tarda en transmitir el archivo en
+congestión, calcule el tiempo que se tarda en transmitir el archivo en
 A.
 
 
@@ -745,7 +745,7 @@ los paquetes.
 
 Después del three-way handshake comienza la conexión. Un paquete (con
 su retardo de transmisión al ser enviado) se transmite al receptor
-(que lo recibe en un tiempo de propagación. El receptor le responde
+(que lo recibe en un tiempo de propagación). El receptor le responde
 con un paquete minúsculo que sólo tendría un breve retardo de
 propagación (paquete con las cabeceras).
 <!-- DUDA: Esto suponiendo que la comunicación no esté siendo -->
@@ -824,33 +824,91 @@ cuando los recursos correspondientes estén libres. De este modo TCP
 proporciona este procedimiento para evitar que el emisor sature al
 receptor.
 
-Es un esquema crediticio el receptor avisa al emisor de lo que puede
-aceptar.
-
 Se proporciona un servicio de control de flujo manteniendo en el
 emisor una variable conocida como **ventana de recepción** (al ser
 full-duplex hay una ventana a cada lado). Se utiliza el campo ventana
 (WINDOW) en el segmento TCP para establecer la ventana ofertada.
 
-El receptor responde al emisor con el número de bytes que tiene libre
-en su ventana, si este le responde con 0 es que no puede recibir más
-paquetes. El emisor tiene que esperar a recibir un nuevo paquete con
-el mismo ack pero con un valor de window mayor que cero.
+Es un esquema crediticio. El receptor responde al emisor con el número
+de bytes que tiene libre en su ventana, si este le responde con 0 es
+que no puede recibir más paquetes. El emisor tiene que esperar a
+recibir un nuevo paquete con el mismo ack pero con un valor de window
+mayor que cero. 
 
 **Control de congestión:**
 
 Actuando de manera parecida al control de flujo da respuesta a los
-problemas que pueda causar la congestión de la red IP.
+problemas que pueda causar la congestión de la red IP. La finalidad de
+este es evitar que el emisor llegue a saturar la red. (Tanto el ancho
+de banda de las líneas como los buffers en los dispositivos de
+interconexión).
 
-En el emisor se usa una ventana y un umbral, inicialmente VCongestion
-= MaximumSegmentSize, y Umbral es un valor arbitrario inicializado por
-el emisor y ambos son regulados cuando se produce algún timeout.
+La principal solución que se propone es limitar el tráfico generado. Y
+esto se puede estudiar de distintas maneras:
 
-Si VCongestion < Umbral, por cada ACK recibido (crece
-exponencialmente, por cada ack que se reciba, si llegan dos, de la
-ventana se liberan dos y se aumenta en dos más) 
+- Control de congestión terminal a terminal: Cuando la capa de red no
+  proporciona un soporte explícito a la capa de transporte esta se
+  guía por comportamientos observados a través de la red, tales como
+  la pérdida de paquetes o los retrasos.
+  
+- Control de congestión asistido por la red: Los routers proporcionan
+  una realimentación explícita al emisor informando de la congestión
+  de la red, y puede ser tan simple como informar de la existencia de
+  congestión en algún enlace de la red mediante el uso de un bit.
 
-<!--13/12/2017  FALTA LO DE ESTE DÍA-->
+TCP ha de usar el primer tipo de control, pues IP no proporciona una
+realimentación explícita a los sistemas terminales en cuanto a
+congestión de la red.
+
+En el emisor se usa una **ventana de congestión** y un umbral,
+inicialmente VCongestion = MaximumSegmentSize, y Umbral es un valor
+arbitrario inicializado por el emisor y ambos son regulados cuando se
+produce algún timeout, es decir, TCP es auto-temporizado. Esta ventana
+limita la velocidad de transmisión para evitar la congestión. Si se
+pierde un segmento se deberá reducir la ventana, si se recibe el ACK
+correctamente puede aumentarse.
+
+Esto se define por el **algoritmo de control de congestión de TCP**,
+que tiene los siguientes estados:
+
+1. **Arranque lento:** Cuando se inicia una conexión TCP el valor
+   inicial de la ventana es igual al MSS, como hemos dicho
+   antes. Puesto que lo ideal sería poder aprovechar al máximo el
+   ancho de banda, para esto se aumenta el tamaño de la ventana,
+   agrandándola en tantos MSS como reconocidos en ese momento,
+   "duplicándola" de este modo cada período de tiempo RTT. Por esto
+   decimos que tiene un arranque lento, pero un crecimiento
+   exponencial. Este crecimiento se detiene cuando se produce una
+   pérdida de paquete (señalada por un timeout), que reduce el tamaño
+   de la ventana a la mitad y otorga este valor al umbral. También
+   puede estar limitada por un umbral tomado con anterioridad. Cuando
+   se alcanza o sobrepasa el valor del umbral se finaliza el arranque
+   lento y se pasa a la prevención de la congestión.
+   
+2. **Prevención de la congestión:** Al entrar en este estado en lugar
+   de duplicar el valor de la ventana, simplemente se aumenta el
+   tamaño de esta en un MSS. Generalmente cuando llega un paquete de
+   reconocimiento. Este crecimiento lineal debe detenerse igualmente
+   para evitar la congestión, comportándose igual que cuando se
+   produce un timeout. Si en lugar de un timeout se produce una
+   pérdida de paquete detectada por el recibimiento de tres ACK
+   duplicados el comportamiento es menos drástico, por tanto reduce el
+   tamaño de la ventana a la mitad y, si está implementado entra en
+   recuperación rápida. **TCP Tahoe** no tiene recuperación
+   rápida. Tras una pérdida limita a 1 MSS la ventana de congestión y
+   entra en estado de arranque lento.
+   
+3. **Recuperación rápida:** Sólo implementada en **TCP Reno**, la
+   ventana se incrementa en 1 MSS por cada ACK duplicado recibido
+   correspondiente al segmento que falta y que ha causado la pérdida
+   que le hizo entrar en este estado. Si llega un ACK para el segmento
+   que falta, se entra de nuevo en el estado de prevención de la
+   congestión. Si en este modo se produce otra pérdida se vuelve al
+   estado de arranque lento.
+   
+   
+
+<!--13/12/2017-->
 
 # Tema 4. Redes Conmutadas e Internet
 

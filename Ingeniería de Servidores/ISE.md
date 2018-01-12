@@ -11,6 +11,7 @@ geometry: margin=1in        			# Tamaño de los márgenes
 \newpage
 
 <!--14/09/2017-->
+<!--
 **Presentación**
 Información asignatura:
 
@@ -24,7 +25,7 @@ Puntuación:
 Teoría 60%: Examen de Teoría.                Mínimo 5/10 
 
 Prácticas 40% Defensa/entrega de prácticas.  Mínimo 5/10 
-
+-->
 
 # Tema 1. Introducción a la Ingeniería de Servidores
 
@@ -33,11 +34,22 @@ software y humanware que permiten trabajar con información.
 
 ## Clasificación de Sistemas Informáticos y Servidores
 Estos sistemas se pueden clasificar de diversas maneras, según su
-arquitectura, uso general o específico...
+arquitectura (paralelismo SISD,MISD, SIMD,MIMD), uso general o
+específico... 
 
 Respecto a arquitectura de servicio se pueden clasificar en Sistema
 aislado, arquitectura cliente-servidor, de n capas o
 Cliente-Cola-Cliente.
+
+### Sistema aislado
+
+No interactúa con otros sistemas, tales como los computadores
+personales.
+
+### Arquitectura cliente-servidor
+
+Las tareas se reparten entre el cliente, proveedor de servicios y los
+demandantes, clientes.
 
 ### Arquitectura de n capas
 
@@ -59,6 +71,7 @@ Ejemplos de esto son torrent o skype.
 ## Requisitos y evaluación de servidores
 
 ### **Prestaciones:**
+
 Cuantificar la velocidad con la que se realiza una determinada carga
 de trabajo. 
 
@@ -73,7 +86,9 @@ el número de trabajos recibidos, si no hay trabajos la productividad
 es 0. 
 
 
-**Disponibilidad:** Se regula mediante los períodos en los que el
+### **Disponibilidad:** 
+
+Se regula mediante los períodos en los que el
 servidor está activo o inactivo, y cuando está inactivo si ese período
 de inactividad es planificado o no planificado.
 
@@ -87,35 +102,48 @@ redundancia de datos, esto es la existencia de datos adicionales a los
 originales que permiten la corrección de errores en datos almacenados
 o transmitidos.
 
-**Seguridad:** Todo servidor debe de ser seguro ante incursión de
+### **Seguridad:** 
+
+Todo servidor debe de ser seguro ante incursión de
 individuos no autorizados, corrupción o alteración de datos y las
 posibles interferencias que impidan el acceso a los recursos. Para
 ello usa medidas como la autenticación de usuarios, encriptación de
-datos, cortaguegos y mecanismos de prevención de ataques DOS.
+datos, cortafuegos y mecanismos de prevención de ataques DOS.
 
-**Extensibilidad-expansibilidad:** Hace referencia a la facilidad que
+### **Extensibilidad-expansibilidad:** 
+
+Hace referencia a la facilidad que
 ofrece el sistema para aumentar sus características o recursos.
 Se permite esto mediante el uso de Sistemas Operativos modulares de
 código abierto, o del uso de interfaces de E/S estándar para facilitar
 la incorporación de más dispositivos al sistema.
 
-**Escalabilidad:** Un servidor es escalable cuando sus prestaciones
+### **Escalabilidad:** 
+
+Un servidor es escalable cuando sus prestaciones
 pueden aumentar significativamente ante un incremento significativo de
 su carga, es decir, de mantener su productividad al incrementar los
 clientes.
+
 Esto se puede implementar mediante cloud computing, clusters,
 virtualización, distribución de carga, Storage Area Networks,
 Programación Paralela... 
 
 <!--21/09/2017-->
-**Mantenimiento:** Procurar que el servidor siga funcionando
-manteniendo las mismas prestaciones iniciales.
+### **Mantenimiento:** 
 
-**Coste:** Es necesario que todo diseño se ajuste al
-presupuesto. Desde el coste del hardware-software hasta la eficiencia
-energética.
+Procurar que el servidor siga funcionando manteniendo las mismas
+prestaciones iniciales. 
+
+### **Coste:**
+
+Es necesario que todo diseño se ajuste al presupuesto. Desde el coste
+del hardware-software hasta la eficiencia energética.
 
 ## Comparación conjunta de prestaciones y coste
+
+<!-- Tal vez este apartado sea más importante que los conceptos de -->
+<!-- "cultura general" anteriores (speedup y prestaciones al menos)-->
 
 Estudiaremos el concepto de "rapidez" en los computadores.
 
@@ -132,7 +160,7 @@ $$S_B(A) = \frac{V_A}{V_B} = \frac{t_B}{t_A}$$
 Siendo $V_A$ la velocidad entendida como Cómputo_realizado/Tiempo.
 
 
-Entoncces el **cambio relativo** es $\Delta V_{A,B} = S_B(A) -1$
+Entonces el **cambio relativo** es $\Delta V_{A,B} = S_B(A) -1$
 
 Una vez conocidas las prestaciones nos interesa conocer el coste de
 estos computadores para poder obtener la máxima relación
@@ -227,7 +255,7 @@ del primero.
 **\underline{Ejercicio 1.11}**
 
 Un nuevo procesador mejora 15 veces la ejecución de las operaciones en
-cooma flotante. Este procesador emplea un 65% del tiempo en coma
+coma flotante. Este procesador emplea un 65% del tiempo en coma
 flotante.
 
 1. En el procesador original, calcular la fracción de tiempo que usaba
