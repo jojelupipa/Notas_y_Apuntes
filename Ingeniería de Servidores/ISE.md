@@ -519,6 +519,7 @@ código del programa. También requiere de parámetros específicos
 Además existen otros profilers como Valgrind (binarios ya compilados),
 V-Tune o CodeXL (usan contadores hardware).
 
+\newpage
 
 <!-- 02/11/2017 -->
 
@@ -540,8 +541,12 @@ condiciones devuelve los mismos resultados.
 **Consistencia y facilidad de medición:** Este índice debe ser medible
 desde cualquier sistema y siempre del mismo modo.
 
-* **Tiempo de ejecución**
-* **MIPS**
+* **Tiempo de ejecución:** Suele considerarse el mejor índice de
+  rendimiento, aunque depende del programa o programas que se
+  ejecuten.
+  
+* **MIPS:** Millones de instrucciones por segundo
+
 * **MFLOPS** (Normalizados: operaciones simples, como la suma, resta,
   multiplicación o comparación, otras como la división requieren más
   operaciones)
