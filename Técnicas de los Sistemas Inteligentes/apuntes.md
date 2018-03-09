@@ -64,7 +64,7 @@ evaluación la cual se obtiene como la suma de otras dos funciones, la
 función coste actual y la función coste estimado del nodo al objetivo.
 
 <!-- Completar tras investigar acerca de la búsqueda y el algoritmo -->
-<!-- estrella -->
+<!-- A estrella -->
 
 * **Modelos más generales:** 
 
@@ -87,7 +87,31 @@ un límite para una determinada estructura, por ejemplo a *ABIERTOS* se
 le limita el tamaño, sacando a los nodos menos favorables cuando la
 memoria se llene.
 
+#### Alternativas al A* 
 
+* __Descenso iterativo A*:__ Toma una cota inicial, si se toma “s” como
+  nodo de inicio, cota = f(s) = h(s). Se utiliza una estrategia de
+  tipo retroactivo. Cuando este no encuentre solución, incrementa la
+  cota y repite el proceso desde el principio (de este modo consigue
+  ahorrar memoria a costa de realizar un cómputo mayor. Es completo,
+  admisible, tiene una complejidad exponencial en tiempo pero lineal
+  en espacio
+  
+* __Búsqueda primero el mejor recursiva:__ Existe una restricción en
+  lo que queremos almacenar. Tiene un mecanismo de propagación
+  específico que cuando un nodo ha sido expandido el nodo recibe el
+  mínimo de la función heurística de sus sucesores.
+  
+* __Búsqueda por franjas:__ Hace uso de una lista para evitar estados
+  repetidos. Revisita los nodos manejando dos listas
+  
+#### Planificación de caminos
+
+
+  
+  
+  
+  
 
 
 
