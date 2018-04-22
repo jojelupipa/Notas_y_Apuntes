@@ -307,5 +307,64 @@ colisionando.
 Un motor de física permite dotar de “realismo físico” a los elementos
 que conforman la escena. En contrapartida, estos requieren múcho cálculo.
 
+\newpage
 
+# Tema 4. Visualización
+
+El renderizado involucraba todo el proceso de generación de imágenes,
+en el cual influenciaba el paso de un modelo 3D a una visualización 2D
+(una pantalla) en la cual afectan factores como la proyección o la
+distorsión de la perspectica, así como la fotometría, luz reflejada
+por los objetos de la escena.
+
+## Cámaras
+
+La cámara y sus **vistas** es uno de los principales puntos de la
+visualización. Proporciona la capacidad de captar la atención a
+voluntad (**encuadre**) y se puede animar a voluntad (siempre evitando
+el *motion sickness*).
+
+Una cámara está compuesta por diversos elementos: Existe el plano de
+proyección, que corresponde con lo que nosotros vemos en nuestra
+pantalla, un par de planos delanteros y traseros, para restringir lo
+que vamos a visualizar y un punto de proyección hacia el cual se
+proyectan todos los puntos de la escena (esto nos permite cambiar “lo
+cerca que miramos”). Tiene un par de vectores, VNP
+(normal al plano) que define “a dónde está mirando” y otro VUp (view
+up) que define la disposición de la cámara, que permite por ejemplo,
+visualizar en horizontal o vertical. Estos vectores junto a una
+posición, definen con exactitud a una cámara.
+
+Además, se puede distinguir entre proyecciones ortográficas y en
+perspectiva según si los puntos se proyectan de manera perpendicular o
+con una deformación que imita a la perspectiva en la realidad.
+
+## Luces
+
+Las luces son usadas para poder percibir los objetos en las escenas,
+así como también pueden producir un ambiente. Una luz básica se
+define por su posición, color e intensidad. Este es el concepto de
+**luz puntual** pero existen otros tipos. La **luz focal**
+adicionalmente tiene un ángulo de apertura que reduce el área que se
+ilumina. La **luz direccional**, por su parte, es una luz focal cuyo
+punto se encuentra en el infinito. Esto implica que los rayos
+incidentes son paralelos entre sí. La **luz ambiental** es otro tipo
+de luz el cual ilumina a toda la escena por igual y simula la luz
+indirecta, permite añadir una dominante de color.
+
+### Materiales
+
+El material de los objetos influye en la manera que se refleja la luz
+que se proyecta sobre estos. Todo material tiene una componente
+**especular** y otra **difusa**, así como otra componente
+**ambiental**.
+
+La especular depende del ángulo que forman el rayo de luz reflejado y
+el observador. La difusa sin embargo depende del ángulo que forman la
+normal y la posición de la luz. La luz ambiental es inherente al
+material, una luz que emite continuamente independientemente del resto
+de luces.
+
+Three.js implementa una clase Material que usa shaders para llevar a
+cabo el proceso de iluminación. 
 
