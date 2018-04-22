@@ -131,3 +131,181 @@ Por estos motivos es una buena alternativa utilizar una capa de
 abstracción sobre WebGL. La más conocida y la usada en esta asignatura
 es **Three.js**, open source y mantenida, orientada a objetos y con
 soporte para interacción y formatos de archivos 3D.
+
+\newpage
+
+# Tema 3. Grafos de Escena
+
+Un sistema gráfico se organiza mediante un modelo jerárquico en el
+cual podemos observar qué objetos hay en la escena y cómo se
+relacionan entre sí. Esto se implementa mediante una estructura de
+datos apropiada, en este caso, el grafo.
+
+Un grafo de escena es un grafo dirigido acíclico que tiene diversos
+tipos de nodos:
+
+* **Geometría:** Objetos geométricos, fondo de la escena...
+
+* **Nodos que influyen en otros elementos:** Tales como luces,
+  materiales o comportamientos.
+  
+* **Nodos gestión:** Vista, grupos o transformaciones.
+
+Este grafo (árbol) tiene una única raiz. Sus hojas pueden representar
+figuras, luces, vistas o comportamientos.
+
+El grafo está orientado a objetos, pues cada rama puede ser una
+componente perfectamente reusable. Este diseño permite la adaptación
+dinámica a cambios y separar representación y visualización.
+
+## Representación de Figuras
+
+Una figura es la unión de su geometría, las propiedades intrínsecas de
+la figura, y su aspecto, la manera en que es visualizada.
+
+En la representación **B-Rep** (boundary representation/representación
+de fronteras) una figura se representa por la frontera
+que la delimita, y para esta frontera se utiliza una una malla de
+polígonos. La representación es exacta para figuras poliédricas y
+aproximada para curvas.
+
+Para representar una figura es necesario almacenar su **geometría**,
+las coordenadas de los vértices que la representan, y su
+**topología**. Adicionalmente, para mejorar la representación se puede
+guardar su **vector normal** para calcular la iluminación y sus
+**coordenadas de textura** para aplicar posteriormente texturas.
+
+La geometría se puede almacenar de manera indexada o no indexada,
+según si sus vértices se almacenan independientemente de sus caras y
+no se repiten o si se almacenan los vértices y las caras
+conjuntamente, guardando en sentido antihorario el trío de vértices
+que define cada cara.
+
+```c++
+// Indexada
+Vertices = {A, B, C, D ... }
+Caras = {1,0,2, 0,1,3, 0,2,3 ... } // En sentido antihorario, en tríos
+
+// No indexada
+Vertices_caras = {B,A,C, A,B,D, A,C,D ... } // En sentido antihorario
+también 
+```
+
+La indexada ahorra mucho espacio de almacenamiento, se permite
+modificar vértices rápidamente y facilita operaciones de
+pertenecencia.
+
+La no indexada, por su parte, permite una visualización más rápida y
+permite tener un mismo vértice con varias normales y coordenadas de
+textura según la cara desde la que se use.
+
+*Las ventajas de la indexada son las desventajas de la no indexada y
+viceversa.* 
+
+### Creación de geometría
+
+La geometría se puede generar **manualmente**, en el
+código. **Proceduralmente**, dados unos parámetros (generar alguna
+figura por revolución o utilizar three.js). **Utilizando
+primitivas básicas y operando con ellas** para generar figuras más
+complejas (transformaciones como extrusión, barrido o revolución;
+y operaciones booleanas como unión, intersección y diferencia).
+Mediante la **interacción**. **Cargando de un archivo**, por ejemplo
+los .obj, para los cuales hay que importar los materiales y el modelo.
+
+La clase **Mesh** conforma un tipo especial de nodo, pues además de
+geometría y material incluye una transformación.
+
+Es necesario recordar los tipos de transformaciones geométricas que
+hay: **Traslación, escalado uniforme y rotación**
+
+Las combinaciones de traslaciones con rotaciones o escalados **no son
+conmutativas**. 
+
+En three.js, en la clase mesh se pueden configurar mediante los
+atributos *position, rotation y scale*, los cuales se realizan
+respecto al eje local de cada objeto, transmitiendo todas las
+transformaciones a sus descendientes. Se realizan en este orden:
+Escalado, rotaciones z, y, x y finalmente las traslaciones. Esto hay
+que tenerlo en cuenta a la hora de definir la geometría que queremos
+en nuestra figura. En caso de requerir otro orden para nuestro diseño
+habrá que hacer uso de nodos intermedios auxiliares (del tipo Object3D).
+
+Las tranformaciones se realizan bien al recorrer el grafo para
+visualizar un frame en cada nodo mesh o si se modifican los atributos
+de transformación entre frames.
+
+Otro tipo de transformaciones se pueden efectuar utilizando
+`applyMatrix(matriz4)` la cual permite, introduciendo en `matriz4` la
+matriz correspondiente, aplicar un escalado, rotación o traslado de
+manera permanente a la geometría (no al nodo Mesh), por lo cual se
+puede modificar su posición respecto a su eje local, pero esta
+transformación nunca la heredarán sus hijos.
+
+Three.js nos permite conformar la jerarquía añadiendo y eliminando
+nodos de esta mediante los métodos *add* y *remove*.
+
+## Animación
+
+La animación consiste en que un conjunto de cambios en una figura
+generen la sensación de cambio o movimiento (para percibir movimiento
+se requieren al menos 24 imágenes por segundo). 
+
+Hay diversos modos de implementar las animaciones. Bien con una
+**animación procedural**, modificando parámetros en función del
+tiempo, mediante **escenas clave**, designando un conjunto de escenas
+clave e interpolando manual o automáticamente (tween, p.ej.) los
+valores de los atributos de los elementos de la escena y configurando
+los cambios en función del tiempo, o también se puede **animar
+mediante caminos**, definiendo una trayectoria que el objeto seguirá,
+esto se puede hacer con splines.
+
+## Interacción
+
+### Picking
+La interacción puede ser tanto con la aplicación, usando una GUI, como
+con la escena, usando *picking*, edición o movimientos de cámara.
+
+*La GUI usada en esta asignatura es dat.gui
+[https://github.com/dataarts/dat.gui](https://github.com/dataarts/dat.gui)*
+
+El picking se implementa definiendo el comportamiento de la aplicación
+cuando suceden algunos eventos en el ratón, tales como apretar o
+soltar algún botón del ratón, moverlo o utilizar la rueda, mediante el
+uso de funciones. Además, este comportamiento se puede modificar si
+tenemos en cuenta que alguna tecla modificadora (ctrl, alt o shift)
+está pulsada.
+
+Se pueden utilizar **Estados de la aplicación**, variables globales
+que indiquen qué se está haciendo para determinar cómo proceder en
+determinadas funciones.
+
+Para implementar el picking es necesario primero saber en qué pixel se
+pulsó, posteriormente hay que pasar un rayo que vaya desde la cámara y
+pase por dicho pixel, así obtenemos los objetos que hayan intersectado
+con ese rayo. Estos objetos se guardan en un vector cuyo primer
+elemento fue el primer elemento con el que intersectó, y, por tanto,
+el deseado.
+
+Otra característica interesante en el picking es el **feedback**,
+hacer saber al usuario qué objeto se ha seleccionado. Esto puede
+hacerse de muchos modos, por ejemplo cambiando la opacidad de un
+objeto o cambiando su aspecto de cualquier modo.
+
+### Colisiones
+
+Por lo general es necesario saber cuándo dos objetos están
+colisionando. Esto se realiza en dos fases: Una **fase gruesa** para
+descartar rápidamente elementos que no colisionan, usando *indexación
+espacial* (se utilizan estructuras de descomposición espacial, octrees
+o KD-trees) o *cajas y esferas englobantes*. Y una **fase fina**,
+donde se detecta con mayor exactitud si dos elementos están
+colisionando.
+
+### Física
+
+Un motor de física permite dotar de “realismo físico” a los elementos
+que conforman la escena. En contrapartida, estos requieren múcho cálculo.
+
+
+
