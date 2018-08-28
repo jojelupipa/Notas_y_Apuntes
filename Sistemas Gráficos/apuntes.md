@@ -187,11 +187,10 @@ Vertices = {A, B, C, D ... }
 Caras = {1,0,2, 0,1,3, 0,2,3 ... } // En sentido antihorario, en tríos
 
 // No indexada
-Vertices_caras = {B,A,C, A,B,D, A,C,D ... } // En sentido antihorario
-también 
+Vertices_caras = {B,A,C, A,B,D, A,C,D ... } // En sentido antihorario también 
 ```
 
-La indexada ahorra mucho espacio de almacenamiento, se permite
+La indexada ahorra mucho espacio de almacenamiento, permite
 modificar vértices rápidamente y facilita operaciones de
 pertenecencia.
 
@@ -204,17 +203,17 @@ viceversa.*
 
 ### Creación de geometría
 
-La geometría se puede generar **manualmente**, en el
-código. **Proceduralmente**, dados unos parámetros (generar alguna
-figura por revolución o utilizar three.js). **Utilizando
-primitivas básicas y operando con ellas** para generar figuras más
-complejas (transformaciones como extrusión, barrido o revolución;
-y operaciones booleanas como unión, intersección y diferencia).
-Mediante la **interacción**. **Cargando de un archivo**, por ejemplo
-los .obj, para los cuales hay que importar los materiales y el modelo.
+La geometría se puede generar **Manualmente**, en el código;
+**proceduralmente**, dados unos parámetros (generar alguna figura 
+por revolución o utilizar three.js); **utilizando primitivas básicas
+y operando con ellas** para generar figuras más complejas
+(transformaciones como extrusión, barrido o revolución; y operaciones
+booleanas como unión, intersección y diferencia); mediante la
+**interacción**; **cargando de un archivo**, por ejemplo los .obj,
+para los cuales hay que importar los materiales y el modelo.
 
 La clase **Mesh** conforma un tipo especial de nodo, pues además de
-geometría y material incluye una transformación.
+geometría y material, incluye una transformación.
 
 Es necesario recordar los tipos de transformaciones geométricas que
 hay: **Traslación, escalado uniforme y rotación**
@@ -223,10 +222,10 @@ Las combinaciones de traslaciones con rotaciones o escalados **no son
 conmutativas**. 
 
 En three.js, en la clase mesh se pueden configurar mediante los
-atributos *position, rotation y scale*, los cuales se realizan
+atributos *position*, *rotation* y *scale*, los cuales se realizan
 respecto al eje local de cada objeto, transmitiendo todas las
 transformaciones a sus descendientes. Se realizan en este orden:
-Escalado, rotaciones z, y, x y finalmente las traslaciones. Esto hay
+Escalado, rotaciones *z*, *y*, *x* y finalmente las traslaciones. Esto hay
 que tenerlo en cuenta a la hora de definir la geometría que queremos
 en nuestra figura. En caso de requerir otro orden para nuestro diseño
 habrá que hacer uso de nodos intermedios auxiliares (del tipo Object3D).
@@ -266,31 +265,31 @@ esto se puede hacer con splines.
 La interacción puede ser tanto con la aplicación, usando una GUI, como
 con la escena, usando *picking*, edición o movimientos de cámara.
 
-*La GUI usada en esta asignatura es dat.gui
-[https://github.com/dataarts/dat.gui](https://github.com/dataarts/dat.gui)*
+*La GUI usada en esta asignatura es 
+[dat.gui](https://github.com/dataarts/dat.gui).*
 
 El picking se implementa definiendo el comportamiento de la aplicación
 cuando suceden algunos eventos en el ratón, tales como apretar o
-soltar algún botón del ratón, moverlo o utilizar la rueda, mediante el
+soltar algún botón de éste, moverlo, utilizar la rueda, o mediante el
 uso de funciones. Además, este comportamiento se puede modificar si
 tenemos en cuenta que alguna tecla modificadora (ctrl, alt o shift)
 está pulsada.
 
-Se pueden utilizar **Estados de la aplicación**, variables globales
-que indiquen qué se está haciendo para determinar cómo proceder en
+Se pueden utilizar **Estados de la aplicación**: variables globales
+que indican qué se está haciendo para determinar cómo proceder en
 determinadas funciones.
 
 Para implementar el picking es necesario primero saber en qué pixel se
-pulsó, posteriormente hay que pasar un rayo que vaya desde la cámara y
-pase por dicho pixel, así obtenemos los objetos que hayan intersectado
-con ese rayo. Estos objetos se guardan en un vector cuyo primer
-elemento fue el primer elemento con el que intersectó, y, por tanto,
-el deseado.
+pulsó, posteriormente hay que pasar un rayo que vaya desde la cámara
+hasta el infinito y pase por dicho pixel, así obtenemos los objetos
+que hayan intersectado con ese rayo. Estos objetos se guardan en un
+vector cuyo primer elemento fue el primer elemento con el que
+intersectó, y, por tanto, el deseado.
 
-Otra característica interesante en el picking es el **feedback**,
+Otra característica interesante en el picking es el **feedback**:
 hacer saber al usuario qué objeto se ha seleccionado. Esto puede
-hacerse de muchos modos, por ejemplo cambiando la opacidad de un
-objeto o cambiando su aspecto de cualquier modo.
+hacerse de muchos modos, como por ejemplo cambiando la opacidad de un
+objeto o cambiando su aspecto de cualquier modo (p.e.: modo alambre).
 
 ### Colisiones
 
