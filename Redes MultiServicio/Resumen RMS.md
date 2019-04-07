@@ -32,7 +32,7 @@ TCP/IP utiliza como principales protocolos de transporte TCP y UDP.  **TCP** ori
 
 Un conjunto de parámetros objetivos y subjetivos que se le prometen a un usuario para definir el grado de satisfacción esperado.
 
-Pero existen distintos tipos de medición de la QoS:
+Existen distintos tipos de medición de la QoS:
 
 * QoS planificada: La planificada por el proveedor
 
@@ -74,7 +74,7 @@ Requisitos: Retardo de transferencia controlado, retardo varible controlado, cie
 
 ## Problemas de la arquitectura actual
 
-La arquitectura best-effort proporciona las funcionalidades mínimas para conseguir la conectividad entre extremos. Intenta entregar los paquetes a su destino en un período de tiempo razonable (best effort). Son los nodos extremos los que los que mantienen estados sobre las conexiones y no los intermedios. Del mismo modo no se garantiza una equidad en el tráfico entre distintos extremos. Intenta usar el camino más corto con métrocas que no están relacionadas significativamente con la QoS. Además no ofrece ninguna cuota para la latencia y el jitter.
+La arquitectura best-effort proporciona las funcionalidades mínimas para conseguir la conectividad entre extremos. Intenta entregar los paquetes a su destino en un período de tiempo razonable. Son los nodos extremos los que los que mantienen estados sobre las conexiones y no los intermedios. Del mismo modo no se garantiza una equidad en el tráfico entre distintos extremos. Intenta usar el camino más corto con métricas que no están relacionadas significativamente con la QoS. Además no ofrece ninguna cuota para la latencia y el jitter.
 
 En resumen: no dan una respuesta temporal predecible, no distingue el tipo de tráfico, no acepta peticiones dinámicas de QoS y tiene una capacidad de monitorización limitada.
 
