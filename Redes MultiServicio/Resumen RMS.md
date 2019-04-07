@@ -112,7 +112,7 @@ Además de tener los elementos de un encaminador general se le añaden las fases
 
 ### Elementos para la provisión de QoS
 
-* **Clasificador:** Identifica la clase del paquete, se mantienen N bits en la cabecera y se toma este campo como *clave de clasificación*. Estas claves se comparan con unas *reglas de clasificación* para actuar de acorde a ellas. Alternaticamente se puede usar una clasificación multicampo si se utilizan campos de IP, protocolo o puerto.
+* **Clasificador:** Identifica la clase del paquete, se mantienen N bits en la cabecera y se toma este campo como *clave de clasificación*. Estas claves se comparan con unas *reglas de clasificación* para actuar de acorde a ellas. Alternativamente se puede usar una clasificación multicampo si se utilizan campos de IP, protocolo o puerto.
 
 * **Colas por clase de tráfico**
 
@@ -126,7 +126,9 @@ Además de tener los elementos de un encaminador general se le añaden las fases
 
 El mecanismo más extendido para regular la tasa con la que se le pueden inyectar paquetes de un tipo determinado a la red es el **cubo horadado/leaky bucket**. Se pueden procesar hasta un número limitado de testigos, uno por cada paquete a introducir. Para que el paquete sea retransmitido hay que eliminar el testigo del cubo. Los testigos se introducen en el cubo a una tasa determinada en función del tiempo.
 
-Esto permite limitar tanto el número máximo de paquetes enviados en un instante (limitado por el número de testigos) y limitar la tasa de retransmisión a un máximo definido por la tasa de generación de testigos.
+Se puede interpretar como si tuviéramos un cubo en el que van cayendo fichas, y cada vez que queramos enviar un paquete en la red tenemos que quitar una ficha. Si no tenemos fichas no podemos enviar ningún paquete y tenemos que esperar a que caigan más fichas. Así conseguimos lo siguiente:
+
+Limitar tanto el número máximo de paquetes enviados en un instante (limitado por el número de testigos) y limitar la tasa de retransmisión a un máximo definido por la tasa de generación de testigos.
 
 ### Gestión de colas
 
