@@ -44,7 +44,7 @@ Existen distintos tipos de medición de la QoS:
 
 ### Parámetros medibles
 
-* **Tasa de transferencia (trhoughput):** bits por unidad de tiempo. Bitrate/tasa de datos. Este bitrate piede ser constante **CBR** o variable **VBR**. Puede ser menor la percibida por el usuario que la que existe en la red por el overhead en los paquetes. En *VBR* hay que distinguir las tasas promedio **MBR** y las tasas en los períodos de *pico* **PBR**, así como la duración de estos picos y el ratio de ráfaga (MBR/PBR).
+* **Tasa de transferencia (throughput):** bits por unidad de tiempo. Bitrate/tasa de datos. Este bitrate piede ser constante **CBR** o variable **VBR**. Puede ser menor la percibida por el usuario que la que existe en la red por el overhead en los paquetes. En *VBR* hay que distinguir las tasas promedio **MBR** y las tasas en los períodos de *pico* **PBR**, así como la duración de estos picos y el ratio de ráfaga (MBR/PBR).
 
 * **Retardo extremo a extremo:** Retardo de acceso (tiempo hasta que el medio puede aceptar la transmisión de datos), tiempo de transmisión, tiempo de propagación y tiempo de ida y vuelta RTT
 
@@ -128,7 +128,7 @@ El mecanismo más extendido para regular la tasa con la que se le pueden inyecta
 
 Se puede interpretar como si tuviéramos un cubo en el que van cayendo fichas, y cada vez que queramos enviar un paquete en la red tenemos que quitar una ficha. Si no tenemos fichas no podemos enviar ningún paquete y tenemos que esperar a que caigan más fichas. Así conseguimos lo siguiente:
 
-Limitar tanto el número máximo de paquetes enviados en un instante (limitado por el número de testigos) y limitar la tasa de retransmisión a un máximo definido por la tasa de generación de testigos.
+Limitar tanto el número máximo de paquetes enviados en un instante (limitado por el número de testigos) como limitar la tasa de retransmisión a un máximo definido por la tasa de generación de testigos.
 
 ### Gestión de colas
 
