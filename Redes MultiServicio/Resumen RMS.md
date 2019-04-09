@@ -194,7 +194,7 @@ En este modelo hay tres tipos de elementos de red: Elementos habilitados, sin ca
 
 Es necesario proveer de algún mecanismo para coordinar los comportamientos de cada camino. La señalización realiza tanto negociación (control de admisión) como configuración para los elementos intermedios en la red.
 
-Las fuentes y los receptores se envían periódicamente mensajes describiendo el tráfico y la calidad esperada.
+Las fuentes y los receptores se envían periódicamente mensajes describiendo el tráfico y la calidad esperada: Los emisores SENDER_TSPEC para describir el tráfico, ADSPEC modificado en cada salto y los receptores responden con mensajes RESV que incluyen FLOWSPEC para describir la calidad deseada.
 
 La descripción del tráfico **SENDER_TSPEC** se caracteriza mediante el uso del cubo horadado de tasa r y capacidad b; tasa de datos pico p; unidad mínima de verificado de conformidad m (si un paquete tiene un tamaño menor se le asigna ese tamaño al usarlo en el cubo); tamaño máximo de paquete M.
 
@@ -208,11 +208,11 @@ Reduce la complejidad de la arquitectura desplazando las tareas de clasificació
 
 Los nodos fronterizos utilizan la clasificación multicampo para obtener solo unas pocas clases agregadas. DiffServ define comportamientos por salto, bloques funcionales que permiten construir servicios extremo a extremo. Los administradores de red serán los encargados de combinar dichos bloques para ofrecer servicios concretos.
 
-Este tipo de red se llama **dominio DiffServ^**. Los nodos que rodean un dominio se llaman nodos fronterizos DS y pueden ser de entrada(ingreso)/salida(egreso) o interiores. El acondicionamiento del tráfico se realiza en los nodos de ingreso (usando clasificación multicampo, conformado de tráfico y marcado), según el acuerdo de acondicionamiento del tráfico(TCA). Los flujos de cada aplicación se llaman microflujos y varios de ellos compartirán el mismo DSCP (para clasificación).
+Este tipo de red se llama **dominio DiffServ**. Los nodos que rodean un dominio se llaman nodos fronterizos DS y pueden ser de entrada(ingreso)/salida(egreso) o interiores. El acondicionamiento del tráfico se realiza en los nodos de ingreso (usando clasificación multicampo, conformado de tráfico y marcado), según el acuerdo de acondicionamiento del tráfico(TCA). Los flujos de cada aplicación se llaman microflujos y varios de ellos compartirán el mismo DSCP (para clasificación).
 
 #### Comportamientos por salto PHB
 
-Especifican el comportamiento de encolado, gestión de colas y planificación, sin especificar la técnica a usar. Los PHB con comportmiento similar se agrupan en grupos de PHB.
+Especifican el comportamiento de encolado, gestión de colas y planificación, sin especificar la técnica a usar. Los PHB con comportamiento similar se agrupan en grupos de PHB.
 
 #### Clases de servicios DiffServ
 
@@ -238,7 +238,7 @@ Se puede usar para implementar VPN, ingeniería de tráfico, QoS, cualquier tran
 
 * **Clase de equivalencia de reenvío FEC:** Similar a la definición de clase
 
-* **Etiqueta:** Ideentificador FEC
+* **Etiqueta:** Identificador FEC
 
 * **MPLS Label Switched Path:** Camino conmutado por etiquetas, unidireccional y compuesto por routers múltiples
 
