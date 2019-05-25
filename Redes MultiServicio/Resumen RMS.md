@@ -265,3 +265,271 @@ En algunas redes puede necesitarse usarse ambas.
 ### Reencaminamiento rápido
 
 Mejora la convergencia en caso de fallo en un camino. Para ello se precalculan varios caminos de respaldo por si falla un enlace en lugar de calcularlo cuando se produce el problema como pasa en IP. Este nuevo camino puede activarse en milisegundos, mucho más rápido que en IP.
+
+\newpage
+
+# Tema 3: Protocolos de transmisión multimedia
+
+## Protocolos para servicios de VoIP
+
+Las apps de VoIP necesitan:
+
+* Señalizar el comienzo y el final de la sesión de voz.
+
+* Describir y negociar los codecs.
+
+* Obtener información de la calidad de que se está ofreciendo.
+
+* Transportar los segmentos de voz para que los reconstruya el receptor.
+
+Para esto utilizan protocolos como:
+
+* **RTP:** Real Time Protocol.
+
+* **RTCP:** Real Time Control Protocol.
+
+* **SDP:** Session Description Protocol.
+
+* **SIP:** Session Initianion Protocol.
+
+### RTP
+
+Los ficheros multimedia hay que encapsularlos en un datagrama y
+enviarlos, añadiendo información relativa al contenido y al flujo.
+
+En su cabecera este protocolo se encarga de incluir dichos parámetros,
+cumpliendo con las funciones de identificación de tipo de contenido,
+del emisor, detección de pérdidas, puede señalizar la
+actividad/inactividad de voz, permite sincronización de paquetes de
+flujo y tiene opciones de cifrado.
+
+Proporciona un marco para el transporte multimedia en tiempo real,
+pero necesita particularizarse mediante perfiles para usos
+concretos. Existen perfiles para conferencias de audio-vídeo
+estandarizados.
+
+En un perfil se pueden especificar características que tendrá ese tipo
+de tráfico para poder mejorar la calidad del mismo. 
+
+Los paquetes RTP se encapsulan en datagramas UDP, y fue diseñado para
+funcionar de manera robusta en tiempo real sobre capas de transporte
+no fiables. De este modo relega a la propia aplicación el control de
+errores y la regulación del tráfico.
+
+### RTCP
+
+Junto a RTP se define un protocolo de control que permite la
+retroalimentación sobre la calidad de la comunicación e identificación
+de participantes. Desde el emisor puede informar sobre los datos
+enviados y marcas de tiempo para sincronización y desde el receptor
+puede informar sobre los datos recibidos, las pérdidas de paquetes,
+retardos, jitter o si alguien ha abandonado la sesión. 
+
+RTCP tiene tres componentes principales: El formato de paquetes, las
+reglas de temporización (para enviar información) y una base de datos
+de los participantes para enviar los informes a los distintos
+receptores. Los participantes de una sesrión envían y reciben paquetes
+RTCP de los demás.
+
+### SDP
+
+SDP define el formato para describir una sesión: Nombre, las horas en
+las que la sesión está activa, el  tipo de contenido de la sesión,
+información necesaria para recibir esos medios (puertos,
+dirección...), consumo de ancho de banda estimado,  información de
+contacto del responsable y alguna URL donde encontrar información
+adicional sobre la sesión.
+
+## Protocolos para servicios de vídeo-conferencia
+
+Las aplicaciones de conferencia de vídeo pueden usar protocolos de
+VoIP pero utilizando otros códecs. Pero para controlar las sesiones de
+streaming se define el *Real Time Streaming Protocol*, **RTSP**.
+
+Proporciona acciones de control para parar/reanudar, retroceder y
+avanzar en un vídeo. Se trata de uun control fuera de banda, es decir,
+se envía independientemente del flujo multimedia. Este protocolo se
+puede encapsular tanto en UDP como en TCP.
+
+En lugar de establecerse una conexión, se establece una sesión, que
+tiene un estado que el servidor debe mantener.
+
+Las operaciones que tiene el protocolo son:
+
+* Obtener contenidos de servidores multimedia.
+
+* Invitar a un servidor multimedia a una conferencia.
+
+* Añadir medios a una presentación existente.
+
+## Protocolo de inicio de sesión SIP
+
+*Session Initiation Protocol*, **SIP** proporciona mecanismos para
+establecer y finalizar una llamada, mecanismos para obtener la
+dirección del usuario a llamar y mecanismos para gestionar la llamada
+(modificar la transmisión, añadir participantes a la llamada...). Es
+extensible (añadiendo cabeceras) y escalable (funciona de extremo a
+extremo), además facilita la movilidad de los usuarios.
+
+Sus direcciones suelen tener el formato `sip:user@domain` y, aunque
+pueden ser más complejas, siempre deben contener la dirección del
+equipo anfitrión, pues permite reconocer al usuario independientemente
+de su localización.
+
+Se utiliza para diversas aplicaciones:
+
+* Establecimiento de sesiones de VoIP
+
+* Establecimiento de conferencia multimedia
+
+* Notificación de eventos a usuarios suscritos
+
+* Mensajería de texto
+
+* Transporte de señalización
+
+### Entidades SIP
+
+Un elemento muy importante dentro del protocolo SIP es la existencia
+de distintas entidades que forman parte de este, tanto **agentes de
+usuario (UA)** (servidor y cliente), como servidores del protocolo. 
+Para que SIP funcione debidamente hay que tener un conjunto de
+servidores: De **registro**, para localizar a los usuarios del dominio
+de registro. **Proxy SIP**, intermediario en la sesión SIP (solicita
+en nombre de otras entidades, permite bifurcar llamadas, a diferencia
+de los UA no acepta ni termina llamadas). **Redireccionador**, que
+redirecciona las solicitudes de inicio de sesión a la nueva
+localización del servidor de registro (no acepta ni termina llamadas).
+
+### Formato de mensajes SIP
+
+SIP utiliza un formato similar al de HTTP/1.1: Líneas de texto y
+mensajes similares. Tanto solicitudes como respuestas pueden contener
+un cuerpo en cualquier formato (ASCII, HTML...). No es case-sensitive
+y las cabeceras multivalor pueden combinarse como una lista separada
+por comas.
+
+Tiene una lista de métodos, cabeceras y respuestas que le permiten
+desempeñar sus funciones.
+
+### Transporte de mensajes SIP
+
+SIP incorpora un comportamiento que asegura que el protocolo
+funcionará aun en redes no fiables. Para esto asegura que por cada
+tipo de mensaje se reenvíe un mensaje si no se ha recibido respuesta
+en un tiempo determinado.
+
+### Mensajes destacables de SIP
+
+* **INVITE**: Para establecer sesiones.
+
+* **REGISTER**: Para indicar la dirección de contacto a la red.
+
+* **BYE**: Para finalizar una conexión establecida.
+
+* **ACK**: Para confirmar respuestas finales.
+
+* **CANCEL**: Para terminar búsquedas o llamadas pendientes
+
+* **OPTIONS**: Para averiguar cuáles son las capacidades de un agente
+  o servidor.
+  
+* **REFER**: Para indicarle a un agente que acceda a una URI o URL
+  determinada.
+  
+* **SUBSCRIBE**: Para establecer una suscripción con el propósito de
+  recibir notificaciones sobre un evento.
+  
+* **NOTIFY**: Para enviar información sobre la ocurrencia de un evento
+  particular. 
+  
+* **MESSAGE**: Para transportar mensajes instantáneos en SIP.
+
+
+\newpage
+
+# Tema 4: Redes celulares y movilidad
+
+## Fundamentos de redes celulares
+
+Las redes que usan los teléfonos de hoy en día son redes que están
+basadas en la comunicación mediante radio. Es decir, existen un
+conjunto de frecuencias en las que se pueden emitir una onda para
+comunicarse. El problema es que este rango de frecuencias está
+físicamente limitado y es necesario reutilizar estas frecuencias.
+
+Para conseguir dar servicio a toda la demanda de red que hay la
+estrategia que se utiliza es la siguiente: Se divide el área a proveer
+servicios en múltiples subáreas, en cada una de esas subáreas hay una
+cobertura que ofrece un conjunto de frecuencias que no tienen potencia
+como para interferir con las otras subáreas. Por lo cual dos usuarios
+podrían estar usando la misma frecuencia en dos áreas distintas sin
+interferir en la comunicación del otro. Este uso eficiente de las
+frecuencias permite multiplicar el número de usuarios a los que
+atender dividiendo las zonas de servicio.
+
+A las áreas de cobertura de un transmisor se les llama
+**celdas**. Según la zona en la que se encuentre (área rural,
+densamente pobladas o zonas muy pequeñas como túneles) se utilizan
+celdas con distinto rango de cobertura.
+
+Es posible que entre dos celdas adyacentes se produzcan interferencias
+por su proximidad, pero existen estrategias para solucionar esto: Se
+utilizan distintos rangos de frecuencias para que no interfiera con
+las celdas adyacentes. (Este problema es equivalente al problema de la
+coloración de grafos, donde cada color representaría un rango de
+frecuencias a usar.)
+
+## Esquema de acceso múltiple
+
+Es necesario que varios suscriptores puedan acceder a la red
+simultáneamente. Los tres esquemas básicos más utilizados son:
+
+* **FDMA** (acceso múltiple por división en frecuencia): A cada
+  suscriptor se le asigna una banda de frecuencias.
+
+* **TDMA** (acceso múltiple por división en el tiempo): Cada
+  suscriptor tiene un slot de tiempo para transmitir.
+
+* **CDMA** (acceso múltiple por división de código): A cada suscriptor
+  se le asigna un chip (un código), y todo el tráfico se envía de
+  manera conjunta, pero las propiedades de estos códigos (son
+  ortogonales) permiten que se pueda recuperar la trama
+  correspondiente.
+  
+Para transmitir y recibir al mismo tiempo se utiliza un esquema de
+enlace (FDD o TDD) que permiten usar los enlaces de subida o de bajada
+separándolos por bandas o dividiendo su acceso en función del tiempo.
+
+## Gestión de llamadas
+
+Cuando un móvil se enciende se pone en contacto con una estación base
+a través de un canal de control. Una entidad, el centro de
+autenticación (AuC) realizará el registro y actualizará el registro de
+localización local (HLR) periódicamente para refrescar su ubicación.
+
+Para realizar una llamada un teléfono solicita la llamada a la base,
+cuyo control sabe dónde está el destinatario. Este responde y se
+especifican los detalles de la llamada.
+
+En ocasiones, durante el desplazamiento físico del usuario, es posible
+que se desplaze de una celda a otra, por lo cual se está perdiendo la
+potencia que tenía. Ante esta situación hay que realizar un traspaso
+(handover) para que no se interrumpa la llamada. Para esto el móvil
+detecta la potencia de señal y solicita el cambio a la estación base
+más cercana, tras lo cual se libera el canal en la base usada
+previamente.
+
+Las operadoras deben optimizar la capacidad de red, y utilizan como
+medida el “Erlang”, un Erlang equivale a utilizar un canal el 100% del
+tiempo.
+
+## Infraestructura 2G
+
+Hay una estación transceptora base con antenas para comunicarse con
+los móviles. Un controlador en la base determina qué estación es mejor
+para una llamada. Un centro de conmutación móvil se encarga de
+autenticar y mantener el registro de locales y visitantes a la vez que
+se conectaba al enlace de la red conmutada de telefonía pública.
+
+## Infraestructura 3G
