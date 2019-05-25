@@ -198,7 +198,7 @@ Las fuentes y los receptores se envían periódicamente mensajes describiendo el
 
 La descripción del tráfico **SENDER_TSPEC** se caracteriza mediante el uso del cubo horadado de tasa r y capacidad b; tasa de datos pico p; unidad mínima de verificado de conformidad m (si un paquete tiene un tamaño menor se le asigna ese tamaño al usarlo en el cubo); tamaño máximo de paquete M.
 
-RSVP no selecciona ninguna ruta ni encamina con QoS, las reservas se llevan a cabo en la ruta más corta, ya que sin modificar el comportamiento del siguiente salto no se puede forzar un camino diferente y no se adoptan aún protocolos de encaminaminto con QoS entre dominios.
+RSVP no selecciona ninguna ruta ni encamina con QoS, las reservas se llevan a cabo en la ruta más corta, ya que sin modificar el comportamiento del siguiente salto no se puede forzar un camino diferente y no se adoptan aún protocolos de encaminamiento con QoS entre dominios.
 
 **Requisitos:** Clasificación multicampo; varias colas, una por flujo y al menos otra para el tráfico no conformado; medición del tráfico mediante el uso de cubos horadados; capa de gestión que soporte RSVP
 
@@ -573,5 +573,114 @@ forastera.
 De este modo se consigue lo mismo que explicábamos anteriormente sin
 requerir la intervención del nodo móvil, sino que el propio proxy se
 encargará de gestionarlo todo.
+
+\newpage
+
+# Tema 5: Redes de nueva generación. IPv6
+
+Una red de próxima generación se define como la red basada en paquetes
+que permite prestar servicios de comunicación usando múltiples
+tecnologías sustentadas por la QoS. Ofreciendo unos servicios de
+calidad y soportando movilidad generalizada.
+
+## Subsistema multimedia IP (IMS)
+
+El objetivo de las redes de tercera generación 3G es reunir las
+ventajas de las redes IP y las redes celulares. El subsistema IMS es
+el que permite acceder a los servicios de internet de manera
+ubicua. Proporciona QoS, permite facturar según el servicio utilizado
+e integrar diferentes servicios.
+
+Sus requisitos son:
+
+* Soporte para ofrecer sesiones multimedia
+
+* Mecanismos de negociación de QoS
+
+* Soporte para interconectar con redes de conmutación de circuitos e
+  internet
+
+* Soporte para itinerancia (roaming)
+
+* Control estricto sobre los servicios ofrecidos al usuario final.
+
+* Creación rápida de servicios sin requerir su estandarización.
+
+La arquitectura de IPv6 reune un conjunto de entidades que le permiten
+dar soporte a sus redes mediante distintos tipos de servidores, que
+gestionan tanto el funcionamiento de su red como la conmutación entre
+redes IPv4 e IPv6.
+
+## Identidades en IMS
+
+La **identidad pública** de cada usuario puede ser tanto una URI SIP o
+una URI TEL (una dirección sip o un número de teléfono). La
+**identidad privada** tiene un formato determinado (NAI) que sirve
+para autenticar e identificar al suscriptor.
+
+## Protocolos utilizados en IMS
+
+* **Control de sesión:** SIP
+
+* **Autenticación:** AAA, Diameter
+
+* **Transporte:** Fiables: TCP, SCTP. No fiables: DCCP, RTP, RTCP,
+  SRTP
+  
+## Sercicios en IMS
+
+* **Push to talk:** Half duplex, como un walkie-talkie. Usado en
+  escenarios de bajo ancho de banda y alto retardo.
+  
+* **Presencia:** SIP SUSCRIBE y NOTIFY.
+
+* **Mensajería instantánea:** SUSCRIBE, NOTIFY y MESSAGE.
+
+
+## IPv6
+
+Para solventar los problemas del diseño original de internet, cuya
+escala no se estimó debidamente en su origen, surgió IPv6.
+
+Entre sus **carcterísticas** destacan:
+
+* **Capacidad de direccionamiento extendido**
+
+* **No require uso de NAT:** Por sus numerosas direcciones IP.
+
+* **Formato de cabecera simplificado y extensible**
+
+* **Autenticación y privacidad**
+
+* **Servicio diferenciado:** Mejora el encaminamiento según niveles de
+  prioridad.
+  
+* **Etiquetado de flujo**
+
+* **Autoconfiguración sin estado**
+
+* **No utiliza broadcast**
+
+Sus datagramas son más complejos, recabando más información en sus
+cabeceras. De hecho sus direcciones están compuestas por 128 bits.
+
+El direccionamiento se hace con estas direcciones, existiendo
+conceptos especiales como anycast, que es una dirección que se puede
+asignar a varios dispositivos y, cuando se envía a un anycast se envía
+al más cercano según la tabla de encaminamiento del router.
+
+IPv6 mantiene la **Calidad de servicio** reutilizando campos para la
+clase del tráfico e incluso usando otros campos para la
+clasificación de paquetes (tipo de protocolo o versión de IP o
+etiqueta de flujo). También permite indicar en la propia cabecera una
+ruta desde el emisor con el mejor camino o usando cabeceras
+específicas para ser procesadas salto a salto.
+
+En la actualidad se está intentando hacer una solución en la cual sean
+compatibles tanto IPv4 como IPv6 hasta que la implementación de IPv6
+sea global y se pueda proporcionar un mejor servicio generalizado.
+
+\newpage
+
 
 
