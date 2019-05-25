@@ -533,3 +533,45 @@ autenticar y mantener el registro de locales y visitantes a la vez que
 se conectaba al enlace de la red conmutada de telefonía pública.
 
 ## Infraestructura 3G
+
+El controlador en la base del 2G se sustituye por un controlador de
+red radio. Que ahora se conecta tambièn con nodos de soporte de
+servicio generalizado, que permiten conectarse con los nodos de
+soporte de pasarela que dan acceso a internet.
+
+## IP móvil
+
+Cada vez se exige más que se mantenga la IP a pesar de que los nodos
+cambien de red. Para dar un soporte a la movilidad se utilizan algunas
+aproximaciones basadas en nodos móviles y basados en red.
+
+Una solución para **IPv4** es que se procura mantener en todo nodo móvil
+la IP que tenía en su dirección local, cuando el móvil se conecta a
+una red distinta se le solicita una dirección de custodia al agente
+externo, este le comunica su dirección de custodia a su agente
+local. De este modo, cuando alguien quiere enviarle un mensaje a este
+móvil se lo envía a su agente local, que puede enviar en un túnel el
+mensaje al destinatario, ya que mantiene dónde se encuentra este. El
+receptor responde al emisor sin pasar por el agente local.
+
+Con **IPv6** no es necesario hacer uso de agentes externos. Usa la
+optimización de rutas propia de IPv6. Sin embargo estas rutas son
+subóptimas. Las respuestas del receptor al emisario utilizan el mismo
+túnel que el envío original.
+
+**IPv6** móvil puede soportar la optimización de rutas óptimas. Se le
+indica al nodo emisario cuál es la dirección de custodia que tiene
+asignada para realizar comunicaciones óptimas.
+
+
+**IP móvil con proxy:** Con un sistema basado en dos entidades:
+**anclaje local de movilidad** (LMA), responsable de mantener la
+información de localización, y **pasarela de acceso móvil** (MAG),
+responsable de actuar en nombre del nodo móvil que está en la red
+forastera. 
+
+De este modo se consigue lo mismo que explicábamos anteriormente sin
+requerir la intervención del nodo móvil, sino que el propio proxy se
+encargará de gestionarlo todo.
+
+
