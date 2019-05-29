@@ -230,41 +230,60 @@ IntServ y DiffServ pueden desplegarse de forma cooperativa. IntServ se aplicarí
 
 ## ¿Qué es MPLS?
 
-MultiProtocol Label Switching es una tecnología de reenvío de paquetes que se basa en etiquetas. Se utiliza en redes de área amplia. La etiqueta se inserta entre las cabeceras de nivel de enlace y de interconexión de redes.
+MultiProtocol Label Switching es una tecnología de reenvío de paquetes
+que se basa en etiquetas. Se utiliza en redes de área amplia. La
+etiqueta se inserta entre las cabeceras de nivel de enlace y de
+interconexión de redes. 
 
-Se puede usar para implementar VPN, ingeniería de tráfico, QoS, cualquier transporte sobre MPLS o reinicio rápido de rutas. Reduce la complejidad en el reenvío en los routers.
+Se puede usar para implementar VPN, ingeniería de tráfico, QoS,
+cualquier transporte sobre MPLS o reinicio rápido de rutas. Reduce la
+complejidad en el reenvío en los routers. 
 
 ### Conceptos básicos
 
-* **Clase de equivalencia de reenvío FEC:** Similar a la definición de clase
+* **Clase de equivalencia de reenvío FEC:** Similar a la definición de
+  clase.
 
-* **Etiqueta:** Identificador FEC
+* **Etiqueta:** Identificador FEC.
 
-* **MPLS Label Switched Path:** Camino conmutado por etiquetas, unidireccional y compuesto por routers múltiples
+* **MPLS Label Switched Path:** Camino conmutado por etiquetas,
+  unidireccional y compuesto por routers múltiples.
 
-* **Routers MPLS:** Tienen nodos de ingreso LER, de tránsito (LSR) y de egreso.
+* **Routers MPLS:** Tienen nodos de ingreso LER, de tránsito (LSR) y
+  de egreso.
 
-* **Tunel LSP:** La ruta LSP no tiene por qué seguir el mismo camino que el indicado por el algoritmo de encaminamiento correspondiente.
+* **Tunel LSP:** La ruta LSP no tiene por qué seguir el mismo camino
+  que el indicado por el algoritmo de encaminamiento correspondiente.
 
 #### Etiqueta MPLS
 
-Tiene una longitud fija de 32 bits donde se usan 20 bits de etiqueta, 3 bits para indicar QoS, 1 bit para indicar si la etiqueta es la última de la lista de etiquetas y 8 para TTL (Time To Live como en IP).
+Tiene una longitud fija de 32 bits donde se usan 20 bits de etiqueta,
+3 bits para indicar QoS, 1 bit para indicar si la etiqueta es la
+última de la lista de etiquetas y 8 para TTL (Time To Live como en
+IP).
 
 ### Señalización MPLS
 
-Para usar un LSP es necesario señalizarlo entre los distintos encaminadores, cada etiqueta es un valor local para cada enlace.
+Para usar un LSP es necesario señalizarlo entre los distintos
+encaminadores, cada etiqueta es un valor local para cada enlace.
 
 Hay dos protocolos de encaminamiento principales:
 
-* **Protocolo de distribución de etiquetas, LDP** que suele usarse en MPLS VPN
+* **Protocolo de distribución de etiquetas, LDP** que suele usarse en
+  MPLS VPN.
 
-* **Protocolo de reserva de recursos con ingeniería de tráfico, RSVP-TE**
+* **Protocolo de reserva de recursos con ingeniería de tráfico,
+  RSVP-TE**.
 
-En algunas redes puede necesitarse usarse ambas.
+En algunas redes pueden ser necesario usar ambas.
 
 ### Reencaminamiento rápido
 
-Mejora la convergencia en caso de fallo en un camino. Para ello se precalculan varios caminos de respaldo por si falla un enlace en lugar de calcularlo cuando se produce el problema como pasa en IP. Este nuevo camino puede activarse en milisegundos, mucho más rápido que en IP.
+Mejora la convergencia en caso de fallo en un camino. Para ello se
+precalculan varios caminos de respaldo por si falla un enlace en lugar
+de calcularlo cuando se produce el problema como pasa en IP. Este
+nuevo camino puede activarse en milisegundos, mucho más rápido que en
+IP. 
 
 \newpage
 
@@ -328,7 +347,7 @@ retardos, jitter o si alguien ha abandonado la sesión.
 RTCP tiene tres componentes principales: El formato de paquetes, las
 reglas de temporización (para enviar información) y una base de datos
 de los participantes para enviar los informes a los distintos
-receptores. Los participantes de una sesrión envían y reciben paquetes
+receptores. Los participantes de una sesión envían y reciben paquetes
 RTCP de los demás.
 
 ### SDP
@@ -406,8 +425,9 @@ localización del servidor de registro (no acepta ni termina llamadas).
 SIP utiliza un formato similar al de HTTP/1.1: Líneas de texto y
 mensajes similares. Tanto solicitudes como respuestas pueden contener
 un cuerpo en cualquier formato (ASCII, HTML...). No es case-sensitive
-y las cabeceras multivalor pueden combinarse como una lista separada
-por comas.
+para los nombres de los campos y algunas palabras clave, lo demás sí
+es case sensitive y las cabeceras multivalor pueden combinarse como
+una lista separada por comas.
 
 Tiene una lista de métodos, cabeceras y respuestas que le permiten
 desempeñar sus funciones.
@@ -535,7 +555,7 @@ se conectaba al enlace de la red conmutada de telefonía pública.
 ## Infraestructura 3G
 
 El controlador en la base del 2G se sustituye por un controlador de
-red radio. Que ahora se conecta tambièn con nodos de soporte de
+red radio. Que ahora se conecta también con nodos de soporte de
 servicio generalizado, que permiten conectarse con los nodos de
 soporte de pasarela que dan acceso a internet.
 
@@ -545,7 +565,10 @@ Cada vez se exige más que se mantenga la IP a pesar de que los nodos
 cambien de red. Para dar un soporte a la movilidad se utilizan algunas
 aproximaciones basadas en nodos móviles y basados en red.
 
-Una solución para **IPv4** es que se procura mantener en todo nodo móvil
+En una solución para **IPv4** se proponen las siguientes entidades: un
+**nodo móvil**, una **red local**, una **red forastera** o visitada,
+un **nodo emisario** o interlocutor, un **agente local** y un **agente
+externo**. La idea es: se procura mantener en todo nodo móvil
 la IP que tenía en su dirección local, cuando el móvil se conecta a
 una red distinta se le solicita una dirección de custodia al agente
 externo, este le comunica su dirección de custodia a su agente
@@ -682,5 +705,30 @@ sea global y se pueda proporcionar un mejor servicio generalizado.
 
 \newpage
 
+# Tema 6: Nuevos servicios sobre redes IP
+
+## IP como protocolo de convergencia
+
+TCP/IP ha demostrado la interconexión de todas las otras tecnologías
+en IP están centradas las redes actuales. El uso de la misma
+infraestructura para distintos servicios (voz/móvil/datos) reducen
+considerablemente los gastos.
+
+Proporciona los siguientes servicios: Vídeo, red de banda ancha, datos
+por cable preexistentes, interconexión de redes IP corporativas,
+servicios de telefonía, móviles e inalámbricos y acceso a internet.
+
+En el futuro se espera que puedan logarse otras tecnologías:
+
+* **Virtualización de dispositivos:** Tecnologías basadas en web que
+  se puedan ejecutar en cualquier sitio.
+  
+* **Virtualización de plataformas:** Computación en la nube
+
+* **Virtualización de la red** 
+
+* **IoT**
+
+* **Internet de servicios (IoS)**
 
 
